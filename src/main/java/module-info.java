@@ -5,3 +5,4 @@ module com.equipok {
     opens com.equipok to javafx.fxml;
     exports com.equipok;
 }
+//NO BORRAR!
