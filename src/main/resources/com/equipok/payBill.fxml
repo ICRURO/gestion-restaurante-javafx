@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="396.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.PayBillController">
+   <children>
+      <TableView fx:id="billsTable" layoutX="29.0" layoutY="44.0" prefHeight="257.0" prefWidth="743.0">
+        <columns>
+          <TableColumn fx:id="colTableId" prefWidth="59.0" text="Mesa" />
+          <TableColumn fx:id="colItems" prefWidth="605.0" text="Platillos" />
+            <TableColumn fx:id="colTotal" prefWidth="78.0" text="Total" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnPay" layoutX="725.0" layoutY="324.0" mnemonicParsing="false" onAction="#handleProcessPayment" text="Pagar" />
+      <Button layoutX="29.0" layoutY="349.0" mnemonicParsing="false" onAction="#switchToPrimary" text="Regresar" />
+      <Label layoutX="345.0" layoutY="14.0" text="Pagar cuenta">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

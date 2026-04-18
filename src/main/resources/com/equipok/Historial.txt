@@ -1,4 +1,7 @@
 --- Ian 17/abr/2026
 
     Prueba de Push/Pull github
-    Hammond
+
+--- Ian 18/abr/2026
+
+    Si van a meter un pojo haganlo en la carpeta de model
