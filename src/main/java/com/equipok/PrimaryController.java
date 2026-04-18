@@ -10,11 +10,6 @@ public class PrimaryController {
     private Button btnPagarCuenta;
 
     @FXML
-    private void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
-    }
-
-    @FXML
     private void switchToPayBill() throws IOException {
         App.setRoot("payBill");
     }

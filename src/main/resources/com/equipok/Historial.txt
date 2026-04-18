@@ -4,4 +4,6 @@
 
 --- Ian 18/abr/2026
 
-    Si van a meter un pojo haganlo en la carpeta de model
+    * Si van a meter un pojo haganlo en la carpeta de model
+
+    * Borré el controlador SecondaryController y secondary.fxml de la plantilla

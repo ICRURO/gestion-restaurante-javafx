@@ -8,7 +8,6 @@
 <VBox alignment="CENTER" prefHeight="291.0" prefWidth="475.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.PrimaryController">
    <children>
       <Label text="Primary View" />
-      <Button fx:id="primaryButton" onAction="#switchToSecondary" text="Switch to Secondary View" />
       <Button fx:id="btnPagarCuenta" mnemonicParsing="false" onAction="#switchToPayBill" text="Pagar cuenta" />
    </children>
    <padding>

@@ -5,6 +5,8 @@ public class Bill {
     private int tableId;
     private String items;
     private double total;
+    private String status;
+    private double tip;
 
     public Bill(int id, int tableId, String items, double total) {
         this.id = id;
@@ -12,8 +14,6 @@ public class Bill {
         this.items = items;
         this.total = total;
     }
-
-    // Getters and setters
 
     public int getId() {
         return id;
@@ -45,5 +45,21 @@ public class Bill {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public double getTip() {
+        return tip;
+    } 
+    
+    public void setTip(double tip) {
+        this.tip = tip;
     }
 }

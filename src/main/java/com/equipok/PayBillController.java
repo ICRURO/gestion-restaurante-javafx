@@ -49,7 +49,7 @@ public class PayBillController {
 
     private void loadPendingBills() {
         billsList.clear();
-        String sql = "SELECT * FROM bills WHERE status_bill = 'pendiente'";
+        String sql = "SELECT * FROM bills WHERE status_bill = 'PENDING'";
         try (Connection conexion = ConexionDB.obtenerConexion();
              PreparedStatement pstmt = conexion.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {

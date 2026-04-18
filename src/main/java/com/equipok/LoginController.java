@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 public class LoginController {
     
     @FXML
@@ -52,5 +51,4 @@ public class LoginController {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-
 }
