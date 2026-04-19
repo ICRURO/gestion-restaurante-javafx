@@ -24,7 +24,7 @@ public class PrimaryController {
     
     @FXML
     private void abrirReservas() throws IOException {
-        // "reserva" debe ser exactamente el nombre de tu archivo .fxml (sin la extensión)
+        
         App.setRoot("reserva"); 
     }
 }

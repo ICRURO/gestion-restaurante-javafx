@@ -34,7 +34,7 @@ public class PaymentController {
     private VBox details;
 
     @FXML
-    private Button btnPagar;
+    private Button btnPay;
 
     @FXML 
     private CheckBox chkAddTip;
@@ -100,7 +100,7 @@ public class PaymentController {
             double received = Double.parseDouble(receivedInput);
             double change = received - totalWithTip;
             lblChange.setText(String.format("%.2f", Math.max(0, change)));
-            btnPagar.setDisable(received < totalWithTip);
+            btnPay.setDisable(received < totalWithTip);
         } catch (NumberFormatException e) {
             lblChange.setText("0.00");
         }
@@ -109,7 +109,6 @@ public class PaymentController {
    @FXML
     private void handleConfirm() {
         if (currentBill == null) {
-            System.out.println("ERROR: El objeto Bill es nulo");
             return;
         }
         boolean printSuccess = Ticket.print(currentBill, cbMethod.getValue());
@@ -133,7 +132,7 @@ public class PaymentController {
     }
 
     private void closeWindow() {
-        Stage stage = (Stage) btnPagar.getScene().getWindow();
+        Stage stage = (Stage) btnPay.getScene().getWindow();
         stage.close();
     }
 
@@ -154,7 +153,7 @@ public class PaymentController {
         alert.setHeaderText(null);
         alert.setContentText("No es posible generar el ticket");
         ButtonType btnRetry = new ButtonType("Reintentar");
-        ButtonType btnCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE); 
+        ButtonType btnCancel = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE); 
         alert.getButtonTypes().setAll(btnRetry, btnCancel);
         alert.showAndWait().ifPresent(response -> {
             if (response == btnRetry) {
@@ -188,11 +187,9 @@ public class PaymentController {
             pstSale.executeUpdate();
 
             conn.commit();
-            System.out.println("Payment processed, table freed, and sale recorded.");
         } catch (SQLException e) {
             conn.rollback(); 
             e.printStackTrace();
-            System.out.println("Error en la transacción: " + e.getMessage());
         }
         } catch (SQLException e) {
             e.printStackTrace();
