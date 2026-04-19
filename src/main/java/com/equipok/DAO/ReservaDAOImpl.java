@@ -10,7 +10,6 @@ public class ReservaDAOImpl implements IReservaDAO {
 
     @Override
     public boolean guardarReserva(Reserva reserva) {
-        // Usamos los nombres de la tabla que creamos en MySQL
         String sql = "INSERT INTO reservas (fecha, hora, personas, nombre_cliente, telefono_cliente, table_id) VALUES (?, ?, ?, ?, ?, ?)";
         
         try (Connection con = ConexionDB.obtenerConexion();
@@ -24,8 +23,7 @@ public class ReservaDAOImpl implements IReservaDAO {
             ps.setInt(6, reserva.getTableId());
             
             int filasAfectadas = ps.executeUpdate();
-            
-            // Si guardó la reserva, actualizamos la mesa a 'RESERVED' (Extra de 100 puntos)
+
             if (filasAfectadas > 0) {
                 String updateMesa = "UPDATE tables SET status_table = 'RESERVED' WHERE table_id = ?";
                 try (PreparedStatement psMesa = con.prepareStatement(updateMesa)) {

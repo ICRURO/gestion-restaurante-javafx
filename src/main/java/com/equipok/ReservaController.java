@@ -1,4 +1,4 @@
-package com.equipok; // Usando el paquete de tu equipo
+package com.equipok;
 
 import com.equipok.DAO.IReservaDAO;
 import com.equipok.DAO.ReservaDAOImpl;
@@ -14,10 +14,8 @@ public class ReservaController {
 
     private IReservaDAO reservaDAO = new ReservaDAOImpl();
 
-    // Este método se ejecuta automáticamente al abrir la pantalla
     @FXML
     public void initialize() {
-        // Llena el ComboBox solo con las mesas que están 'AVAILABLE'
         cbMesas.getItems().addAll(reservaDAO.obtenerMesasDisponibles());
     }
 
@@ -30,7 +28,6 @@ public class ReservaController {
         }
 
         try {
-            // Crear el objeto con los datos de la pantalla
             Reserva nueva = new Reserva(
                 txtFecha.getText(), txtHora.getText(), 
                 Integer.parseInt(txtPersonas.getText()), 
@@ -38,10 +35,8 @@ public class ReservaController {
                 cbMesas.getValue()
             );
 
-            // Mandar al DAO para guardar en MySQL
             if(reservaDAO.guardarReserva(nueva)) {
                 mostrarAlerta("Éxito", "Reserva guardada correctamente. La mesa ahora está RESERVED.");
-                // Opcional: Limpiar los campos después de guardar
                 cbMesas.getItems().clear();
                 cbMesas.getItems().addAll(reservaDAO.obtenerMesasDisponibles());
             } else {
@@ -52,10 +47,9 @@ public class ReservaController {
         }
     }
 
-    // Método para tu botón "Regresar" (Igual al de tus compañeros)
     @FXML
     private void regresarAlMenu() throws IOException {
-        App.setRoot("primary"); // Asumiendo que 'primary' es el nombre del menú principal
+        App.setRoot("primary");
     }
 
     private void mostrarAlerta(String titulo, String msg) {

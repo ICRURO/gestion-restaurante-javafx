@@ -18,7 +18,6 @@ public class Reserva {
         this.tableId = tableId;
     }
 
-    // Recuerda dar clic derecho -> "Source Action" -> "Generate Getters and Setters"
     public String getFecha() { return fecha; }
     public String getHora() { return hora; }
     public int getPersonas() { return personas; }
