@@ -10,6 +10,14 @@ public class PrimaryController {
     private Button btnPagarCuenta;
 
     @FXML
+    private Button btnPedirOrden;
+    
+    @FXML
+    private void switchToOrderTaking() throws IOException {
+        App.setRoot("orderTaking");
+    }
+
+    @FXML
     private void switchToPayBill() throws IOException {
         App.setRoot("payBill");
     }

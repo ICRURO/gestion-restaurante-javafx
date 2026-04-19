@@ -7,3 +7,8 @@
     * Si van a meter un pojo haganlo en la carpeta de model
 
     * Borré el controlador SecondaryController y secondary.fxml de la plantilla
+
+-- Fernando 18/abr/2026
+    * Implemente el CU-02 (Toma de Pedido).
+    
+    * Creación de vista y controlador; integración con BD (productos, mesas y meseros).

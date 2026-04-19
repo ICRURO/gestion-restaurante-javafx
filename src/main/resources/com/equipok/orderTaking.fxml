@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="com.equipok.OrderTakingController" spacing="15" style="-fx-padding: 20;">
+    
+    <Label text="Toma de Pedido" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    
+    <TableView fx:id="orderTable" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="colItem" text="Producto" prefWidth="250" />
+            <TableColumn fx:id="colPrice" text="Precio" prefWidth="100" />
+        </columns>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Mesa:" />
+        <ComboBox fx:id="tableComboBox" promptText="Seleccionar mesa" />
+        
+        <Label text="Mesero:" />
+        <ComboBox fx:id="waiterComboBox" promptText="Seleccionar mesero" />
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancelar" onAction="#handleCancel" style="-fx-background-color: #ff6666; -fx-text-fill: white;" />
+        <Button text="Confirmar Pedido" onAction="#handleConfirmOrder" style="-fx-background-color: #66cc66; -fx-text-fill: white;" />
+    </HBox>
+</VBox>
