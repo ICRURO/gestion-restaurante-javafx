@@ -12,3 +12,8 @@
     * Implemente el CU-02 (Toma de Pedido).
     
     * Creación de vista y controlador; integración con BD (productos, mesas y meseros).
+
+-- Antonio 18/abr/2026
+    * Implementé el CU-01 (Reserva de Mesa).
+
+    * Creación de la vista (reserva.fxml) y su controlador (ReservaController.java).

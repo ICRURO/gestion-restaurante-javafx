@@ -10,6 +10,7 @@
       <Label text="Primary View" />
       <Button fx:id="btnPagarCuenta" mnemonicParsing="false" onAction="#switchToPayBill" text="Pagar cuenta" />
       <Button fx:id="btnPedirOrden" mnemonicParsing="false" onAction="#switchToOrderTaking" text="Toma de Pedido" />
+      <Button fx:id="btnReservar" mnemonicParsing="false" onAction="#abrirReservas" text="Reservar Mesa" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
