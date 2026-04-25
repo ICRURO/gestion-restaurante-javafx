@@ -44,7 +44,7 @@
       <Separator layoutX="75.0" layoutY="168.0" prefWidth="200.0" />
       <HBox alignment="CENTER" layoutX="75.0" layoutY="339.0" prefHeight="45.0" prefWidth="200.0" spacing="10.0">
          <children>
-            <Button fx:id="btnPagar" mnemonicParsing="false" onAction="#handleConfirm" text="Pagar" />
+            <Button fx:id="btnPay" mnemonicParsing="false" onAction="#handleConfirm" text="Pagar" />
             <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
          </children>
       </HBox>

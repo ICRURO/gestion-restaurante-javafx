@@ -19,7 +19,7 @@ public class Ticket {
             new Label("Cuenta: " + bill.getItems()),
             new Label("Método de Pago: " + method),
             new Label("---------------------------"),
-            new Label("TOTAL: $" + bill.getTotal()),
+            new Label("TOTAL: $" + bill.getTotal() + bill.getTip()),
             new Label("---------------------------"),
             new Label("¡Gracias por su compra!")
         );
