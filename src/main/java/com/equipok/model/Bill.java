@@ -1,17 +1,20 @@
 package com.equipok.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Bill {
     private int id;
     private int tableId;
-    private String items;
     private double total;
     private String status;
-    private double tip;
+    private double discount;    
+    private double paidAmount;
+    private List<Product> itemList = new ArrayList<>(); 
 
-    public Bill(int id, int tableId, String items, double total) {
+    public Bill(int id, int tableId, double total) {
         this.id = id;
         this.tableId = tableId;
-        this.items = items;
         this.total = total;
     }
 
@@ -31,14 +34,6 @@ public class Bill {
         this.tableId = tableId;
     }
 
-    public String getItems() {
-        return items;
-    }
-
-    public void setItems(String items) {
-        this.items = items;
-    }
-
     public double getTotal() {
         return total;
     }
@@ -55,11 +50,36 @@ public class Bill {
         this.status = status;
     }
 
-    public double getTip() {
-        return tip;
+    public double getDiscount() {
+        return discount;
     } 
-    
-    public void setTip(double tip) {
-        this.tip = tip;
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public double getPaidAmount() {
+        return paidAmount;
+    }
+
+    public void setPaidAmount(double paidAmount) {
+        this.paidAmount = paidAmount;
+    }
+
+    public List<Product> getItems() {
+        return itemList;
+    }
+
+    public void setItemList(List<Product> itemList) {
+        this.itemList = itemList;
+    }
+
+
+    public double getRemainingBalance() {
+        return (total + discount) - paidAmount;
+    }
+
+    public List<Product> getItemList() {
+        return itemList;
     }
 }

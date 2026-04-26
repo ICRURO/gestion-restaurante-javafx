@@ -1,11 +1,9 @@
 package com.equipok;
 
+import com.equipok.DAO.BillDAOImpl;
+import com.equipok.DAO.IBillDAO;
 import com.equipok.model.Bill;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -34,6 +32,7 @@ public class PayBillController {
     @FXML
     private Button btnPay;
 
+    private IBillDAO billDAO = new BillDAOImpl();
     private ObservableList<Bill> billsList = FXCollections.observableArrayList();
 
     @FXML
@@ -49,22 +48,8 @@ public class PayBillController {
 
     private void loadPendingBills() {
         billsList.clear();
-        String sql = "SELECT * FROM bills WHERE status_bill = 'PENDING'";
-        try (Connection conexion = ConexionDB.obtenerConexion();
-             PreparedStatement pstmt = conexion.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-            while (rs.next()) {
-                billsList.add(new Bill(
-                    rs.getInt("id"),
-                    rs.getInt("table_id"),
-                    rs.getString("items"),
-                    rs.getDouble("total")
-                ));
-            }
-            billsTable.setItems(billsList);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        billsList.addAll(billDAO.getUnpaidBills());
+        billsTable.setItems(billsList);
     }
 
     @FXML
@@ -82,7 +67,9 @@ public class PayBillController {
             stage.initModality(Modality.APPLICATION_MODAL); 
             stage.showAndWait(); 
             if (dialogController.isPaymentConfirmed()) {
-                updateBillStatus(selectedBill.getId());
+                if (billDAO.getPendingItems(selectedBill.getId()).isEmpty()) {
+                    billDAO.updateBillStatus(selectedBill.getId());
+                }
                 loadPendingBills(); 
             }
         } catch (IOException e) {
@@ -93,16 +80,5 @@ public class PayBillController {
     @FXML
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
-    }
-
-    private void updateBillStatus(int id) {
-        String sql = "UPDATE bills SET status_bill = 'PAID' WHERE id = ?";
-        try (Connection conn = ConexionDB.obtenerConexion();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }

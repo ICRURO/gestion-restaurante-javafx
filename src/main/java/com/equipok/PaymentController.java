@@ -3,8 +3,14 @@ package com.equipok;
 import com.equipok.DAO.BillDAOImpl;
 import com.equipok.DAO.IBillDAO;
 import com.equipok.model.Bill;
+import com.equipok.model.Product;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -34,13 +40,42 @@ public class PaymentController {
     @FXML 
     private TextField txtTip;
 
+    @FXML 
+    private CheckBox chkAddDiscount;
+
+    @FXML 
+    private TextField txtDiscount;
+
+    @FXML 
+    private TableView<Product> productsTable;
+
+    @FXML 
+    private TableColumn<Product, String> colProductName;
+
+    @FXML 
+    private TableColumn<Product, Double> colProductPrice;
+
     private boolean paymentConfirmed = false;
     private Bill currentBill;
     private IBillDAO billDAO = new BillDAOImpl();
 
    @FXML
    private void initialize() {
+        if (productsTable != null) {
+            colProductName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            colProductPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+            productsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            
+            productsTable.getSelectionModel().getSelectedItems().addListener((ListChangeListener.Change<? extends Product> c) -> {
+                calculateChange(txtReceived.getText());
+            });
+        }
+
         txtTip.disableProperty().bind(chkAddTip.selectedProperty().not());
+
+        if (txtDiscount != null && chkAddDiscount != null) {
+            txtDiscount.disableProperty().bind(chkAddDiscount.selectedProperty().not());
+        }
         cbMethod.getItems().addAll("Efectivo", "Tarjeta de crédito");
         txtReceived.disableProperty().bind(
             cbMethod.getSelectionModel().selectedItemProperty().isNotEqualTo("Efectivo")
@@ -54,6 +89,12 @@ public class PaymentController {
         txtReceived.textProperty().addListener((bs, old, newVal) -> calculateChange(newVal));
         txtTip.textProperty().addListener((obs, old, newVal) -> calculateChange(txtReceived.getText()));
         chkAddTip.selectedProperty().addListener((obs, old, newVal) -> calculateChange(txtReceived.getText()));
+        if (txtDiscount != null) {
+            txtDiscount.textProperty().addListener((obs, old, newVal) -> calculateChange(txtReceived.getText()));
+        }
+        if (chkAddDiscount != null) {
+            chkAddDiscount.selectedProperty().addListener((obs, old, newVal) -> calculateChange(txtReceived.getText()));
+        }
     };
 
    @FXML
@@ -62,16 +103,28 @@ public class PaymentController {
              showErrorAlert("Datos incompletos", "Por favor, asegúrese de que la factura y el método de pago estén seleccionados.");
             return;
         }
-        //Correccion problema de impresión
-        Ticket.print(currentBill, cbMethod.getValue());
-
+        List<Product> itemsToPay = new ArrayList<>();
+        if (productsTable != null) {
+            itemsToPay.addAll(productsTable.getSelectionModel().getSelectedItems());
+        }
+        if (itemsToPay.isEmpty()) {
+            showErrorAlert("Sin productos", "Por favor, seleccione al menos un producto para pagar.");
+            return;
+        }
         double tip = 0;
         if (chkAddTip.isSelected() && !txtTip.getText().isEmpty()) {
             try {
                 tip = Double.parseDouble(txtTip.getText());
             } catch (NumberFormatException e) {tip = 0;} 
         }
-        if (billDAO.processPayment(currentBill, tip, cbMethod.getValue())){
+        double discount = 0;
+        if (txtDiscount != null && !txtDiscount.getText().isEmpty() && (chkAddDiscount == null || chkAddDiscount.isSelected())) {
+            try {
+                discount = Double.parseDouble(txtDiscount.getText());
+            } catch (NumberFormatException e) { discount = 0; }
+        }
+        Ticket.print(currentBill, itemsToPay, tip, discount, cbMethod.getValue()); //Ya se corrigió el ticket ya bien
+        if (billDAO.processPayment(currentBill, itemsToPay, tip, discount, cbMethod.getValue())){
             paymentConfirmed = true;
             showSuccessAlert("Pago procesado", "cuenta pagada correctamente.");
             closeWindow();
@@ -84,14 +137,23 @@ public class PaymentController {
     private void calculateChange(String receivedInput) {
         try {
             double tip = (chkAddTip.isSelected() && !txtTip.getText().isEmpty()) ? Double.parseDouble(txtTip.getText()) : 0;
-            double totalWithTip = currentBill.getTotal() + tip;
-            
+            double subtotal = 0;
+            if (productsTable != null && productsTable.getSelectionModel() != null) {
+                for (Product p : productsTable.getSelectionModel().getSelectedItems()) {
+                    subtotal += p.getPrice();
+                }
+            } else if (currentBill != null) {
+                subtotal = currentBill.getTotal();
+            }
+            double discount = 0;
+            if (txtDiscount != null && !txtDiscount.getText().isEmpty() && (chkAddDiscount == null || chkAddDiscount.isSelected())) {
+                discount = Double.parseDouble(txtDiscount.getText());
+            }
+            double totalWithTip = Math.max(0, subtotal - discount) + tip;
             if (lblTotal != null) {
                 lblTotal.setText(String.format("%.2f", totalWithTip));
             }
-
             if ("Efectivo".equals(cbMethod.getValue())) {
-                // Si es efectivo, el botón se habilita solo si el dinero alcanza
                 if (!receivedInput.isEmpty()) {
                     double received = Double.parseDouble(receivedInput);
                     btnPay.setDisable(received < totalWithTip);
@@ -101,7 +163,6 @@ public class PaymentController {
                     lblChange.setText("0.00");
                 }
             } else if ("Tarjeta de crédito".equals(cbMethod.getValue())) {
-                // Si es tarjeta, el botón siempre se habilita (txtReceived está deshabilitado)
                 btnPay.setDisable(false);
                 lblChange.setText("0.00");
             }
@@ -127,9 +188,12 @@ public class PaymentController {
 
     public void setBill(Bill bill) {
         this.currentBill = bill;
-        if (lblTotal != null) {
-            lblTotal.setText(String.format("%.2f", bill.getTotal()));
+        if (productsTable != null) {
+            List<Product> pendingItems = billDAO.getPendingItems(bill.getId());
+            productsTable.setItems(FXCollections.observableArrayList(pendingItems));
+            productsTable.getSelectionModel().selectAll(); 
         }
+        calculateChange(txtReceived != null ? txtReceived.getText() : "");
     }
 
     private void showPrintErrorAlert() {

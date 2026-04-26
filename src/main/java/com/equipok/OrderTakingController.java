@@ -1,6 +1,10 @@
 package com.equipok;
 
+import com.equipok.DAO.BillDAOImpl;
+import com.equipok.DAO.IBillDAO;
+import com.equipok.model.Bill;
 import com.equipok.model.Product;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,7 +18,6 @@ public class OrderTakingController {
     @FXML private TableView<Product> orderTable;
     @FXML private TableColumn<Product, String> colItem;
     @FXML private TableColumn<Product, Double> colPrice;
-    
     @FXML private ComboBox<String> tableComboBox;
     @FXML private ComboBox<String> waiterComboBox;
 
@@ -22,7 +25,7 @@ public class OrderTakingController {
     public void initialize() {
         colItem.setCellValueFactory(new PropertyValueFactory<>("name"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        
+        orderTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         loadProducts();
         loadTables();
         loadWaiters();
@@ -31,11 +34,9 @@ public class OrderTakingController {
     private void loadProducts() {
         ObservableList<Product> productList = FXCollections.observableArrayList();
         String sql = "SELECT name, price FROM products";
-
         try (Connection conn = ConexionDB.obtenerConexion();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 productList.add(new Product(rs.getString("name"), rs.getDouble("price")));
             }
@@ -46,10 +47,10 @@ public class OrderTakingController {
     }
 
     private void loadTables() {
-        String sql = "SELECT table_id FROM tables WHERE status_table = 'AVAILABLE'";
+        String sql = "SELECT table_id FROM tables"; 
         try (Connection conn = ConexionDB.obtenerConexion();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 tableComboBox.getItems().add(String.valueOf(rs.getInt("table_id")));
             }
@@ -59,8 +60,8 @@ public class OrderTakingController {
     private void loadWaiters() {
         String sql = "SELECT name FROM waiters WHERE status = 'ACTIVE'";
         try (Connection conn = ConexionDB.obtenerConexion();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 waiterComboBox.getItems().add(rs.getString("name"));
             }
@@ -74,23 +75,30 @@ public class OrderTakingController {
             return;
         }
 
-        try (Connection conn = ConexionDB.obtenerConexion()) {
-            String sql = "INSERT INTO bills (table_id, items, total, status_bill) VALUES (?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            
-            stmt.setInt(1, Integer.parseInt(tableComboBox.getValue()));
-            stmt.setString(2, "Pedido tomado por " + waiterComboBox.getValue()); 
-            stmt.setDouble(3, 0.0); 
-            stmt.setString(4, "PENDING");
-            
-            stmt.executeUpdate();
-            
-            mostrarAlerta("Pedido", "¡Pedido completo!", Alert.AlertType.INFORMATION);
-            
-            App.setRoot("primary");
-            
-        } catch (Exception e) {
-            mostrarAlerta("Error", "No se pudo guardar el pedido: " + e.getMessage(), Alert.AlertType.ERROR);
+        List<Product> selectedProducts = orderTable.getSelectionModel().getSelectedItems();
+        if (selectedProducts.isEmpty()) {
+            mostrarAlerta("Error", "Debes seleccionar al menos un producto.", Alert.AlertType.ERROR);
+            return;
+        }
+        int tableId = Integer.parseInt(tableComboBox.getValue());
+        IBillDAO billDAO = new BillDAOImpl();
+        Bill activeBill = billDAO.getActiveBillByTable(tableId);
+        if (activeBill != null) {
+            if (billDAO.addProductsToExistingBill(activeBill.getId(), selectedProducts)) {
+                mostrarAlerta("Éxito", "Productos agregados a la cuenta existente de la mesa " + tableId, Alert.AlertType.INFORMATION);
+                try { App.setRoot("primary"); } catch(IOException e){}
+            } else {
+                mostrarAlerta("Error", "No se pudieron agregar los productos a la cuenta.", Alert.AlertType.ERROR);
+            }
+        } else {
+            double total = selectedProducts.stream().mapToDouble(Product::getPrice).sum();
+            Bill newBill = new Bill(0, tableId, total);
+            if (billDAO.saveBill(newBill, selectedProducts)) {
+                mostrarAlerta("Éxito", "Nueva cuenta creada y productos agregados.", Alert.AlertType.INFORMATION);
+                try { App.setRoot("primary"); } catch(IOException e){}
+            } else {
+                mostrarAlerta("Error", "No se pudo crear la nueva cuenta.", Alert.AlertType.ERROR);
+            }
         }
     }
 
