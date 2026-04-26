@@ -12,6 +12,8 @@ public class Sales {
     private String paymentMethod; 
     private LocalDateTime saleDate;
 
+    public Sales() {}
+
     public Sales(int billId, int tableId, double subtotal, double tip, String method) {
         this.billId = billId;
         this.tableId = tableId;

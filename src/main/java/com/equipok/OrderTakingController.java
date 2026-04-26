@@ -20,11 +20,9 @@ public class OrderTakingController {
 
     @FXML
     public void initialize() {
-        // 1. Configurar columnas de la tabla
         colItem.setCellValueFactory(new PropertyValueFactory<>("name"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         
-        // 2. Cargar datos
         loadProducts();
         loadTables();
         loadWaiters();
@@ -71,29 +69,24 @@ public class OrderTakingController {
 
     @FXML
     private void handleConfirmOrder() {
-        // Validaciones
         if (tableComboBox.getValue() == null || waiterComboBox.getValue() == null) {
             mostrarAlerta("Error", "Debes seleccionar una mesa y un mesero.", Alert.AlertType.ERROR);
             return;
         }
 
-        // Aquí guardamos el pedido
         try (Connection conn = ConexionDB.obtenerConexion()) {
-            // Ejemplo de inserción básica
             String sql = "INSERT INTO bills (table_id, items, total, status_bill) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
             
             stmt.setInt(1, Integer.parseInt(tableComboBox.getValue()));
-            stmt.setString(2, "Pedido tomado por " + waiterComboBox.getValue()); // Simplificado
-            stmt.setDouble(3, 0.0); // Aquí podrías sumar los precios de la tabla
+            stmt.setString(2, "Pedido tomado por " + waiterComboBox.getValue()); 
+            stmt.setDouble(3, 0.0); 
             stmt.setString(4, "PENDING");
             
             stmt.executeUpdate();
             
-            // Éxito: Mensaje emergente
             mostrarAlerta("Pedido", "¡Pedido completo!", Alert.AlertType.INFORMATION);
             
-            // Regresar al inicio
             App.setRoot("primary");
             
         } catch (Exception e) {

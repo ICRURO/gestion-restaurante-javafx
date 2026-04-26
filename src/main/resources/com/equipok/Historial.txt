@@ -17,3 +17,8 @@
     * Implementé el CU-01 (Reserva de Mesa).
 
     * Creación de la vista (reserva.fxml) y su controlador (ReservaController.java).
+
+--- Fernando 25/abr/2026
+* Implementé el caso de uso de Reporte de Ventas.
+
+* Creación de vista (salesReport.fxml), controlador y capa DAO; integración completa con la BD y configuración de permisos en el módulo para la visualización de transacciones.

@@ -11,6 +11,9 @@ public class PrimaryController {
 
     @FXML
     private Button btnPedirOrden;
+
+    @FXML
+    private Button btnRegistroVenta;
     
     @FXML
     private void switchToOrderTaking() throws IOException {
@@ -27,4 +30,10 @@ public class PrimaryController {
         
         App.setRoot("reserva"); 
     }
+
+    @FXML
+    private void switchToSalesReport() throws IOException {
+        App.setRoot("salesReport");
+    }
+
 }
