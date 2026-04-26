@@ -32,12 +32,12 @@
             <TableColumn fx:id="colPrecio" prefWidth="75.0" text="Precio" />
         </columns>
       </TableView>
-      <Button fx:id="handleGuardarProducto" layoutX="110.0" layoutY="252.0" mnemonicParsing="false" text="Guardar">
+      <Button fx:id="handleGuardarProducto" layoutX="110.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleGuardarProducto" text="Guardar">
          <font>
             <Font name="Arial Black" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="handleEliminarProducto" layoutX="6.0" layoutY="252.0" mnemonicParsing="false" text="Eliminar">
+      <Button fx:id="handleEliminarProducto" layoutX="6.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleEliminarProducto" text="Eliminar">
          <font>
             <Font name="Arial Black" size="16.0" />
          </font>
