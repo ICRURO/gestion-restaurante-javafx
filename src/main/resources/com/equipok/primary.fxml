@@ -10,8 +10,9 @@
       <Label text="Primary View" />
       <Button fx:id="btnPagarCuenta" mnemonicParsing="false" onAction="#switchToPayBill" text="Pagar cuenta" />
       <Button fx:id="btnPedirOrden" mnemonicParsing="false" onAction="#switchToOrderTaking" text="Toma de Pedido" />
-      <Button fx:id="btnReporteVentas" mnemonicParsing="false" onAction="#switchToSalesReport" text="Reporte de Ventas"/>
+      <Button fx:id="btnReporteVentas" mnemonicParsing="false" onAction="#switchToSalesReport" text="Reporte de Ventas" />
       <Button fx:id="btnReservar" mnemonicParsing="false" onAction="#abrirReservas" text="Reservar Mesa" />
+      <Button fx:id="btnAgregarProducto" layoutX="201.0" layoutY="230.0" mnemonicParsing="false" onAction="#abrirProductos" text="Agregar producto" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

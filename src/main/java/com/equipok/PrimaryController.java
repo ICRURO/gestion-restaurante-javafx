@@ -35,5 +35,8 @@ public class PrimaryController {
     private void switchToSalesReport() throws IOException {
         App.setRoot("salesReport");
     }
-
+    @FXML
+    private void abrirProductos() throws java.io.IOException {
+        App.setRoot("productos"); // El nombre de tu nuevo archivo fxml sin la extensión
+    }
 }
