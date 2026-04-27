@@ -22,3 +22,11 @@
 * Implementé el caso de uso de Reporte de Ventas.
 
 * Creación de vista (salesReport.fxml), controlador y capa DAO; integración completa con la BD y configuración de permisos en el módulo para la visualización de transacciones.
+
+-- Ian 25/abr/2026
+
+    Se implementa la funcionalidad del caso de uso Aplicar descuento y caso de uso Dividir la cuenta
+
+-- Ian 26/abr/2026
+
+    Arreglo de intefaces con el uso de SCC

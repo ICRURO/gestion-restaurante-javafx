@@ -12,7 +12,6 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-
 <StackPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.LoginController">
    <children>
       <Pane prefHeight="500.0" prefWidth="800.0">
@@ -41,15 +40,15 @@
                <children>
                   <Pane fx:id="barraSuperior" layoutX="-350.0" prefHeight="40.0" prefWidth="800.0" styleClass="gradient-background">
                      <children>
-                        <HBox layoutX="715.0" layoutY="3.0" prefHeight="26.0" prefWidth="71.0" styleClass="window-controls" stylesheets="@styles.css">
+                        <HBox layoutX="722.0" layoutY="3.0" prefHeight="26.0" prefWidth="71.0" styleClass="window-controls" stylesheets="@styles.css">
                            <children>
-                              <Button mnemonicParsing="false" onMouseClicked="#minimizeApp" stylesheets="@styles.css">
+                              <Button mnemonicParsing="false" onMouseClicked="#minimizeApp" stylesheets="@styles.css" text="  ">
                                  <styleClass>
                                     <String fx:value="mac-button" />
                                     <String fx:value="mac-minimize" />
                                  </styleClass>
                               </Button>
-                              <Button mnemonicParsing="false" onMouseClicked="#closeApp" stylesheets="@styles.css">
+                              <Button mnemonicParsing="false" onMouseClicked="#closeApp" stylesheets="@styles.css" text="  ">
                                  <styleClass>
                                     <String fx:value="mac-button" />
                                     <String fx:value="mac-close" />

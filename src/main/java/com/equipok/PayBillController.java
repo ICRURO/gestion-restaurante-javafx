@@ -9,10 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 public class PayBillController {
@@ -57,21 +54,12 @@ public class PayBillController {
         Bill selectedBill = billsTable.getSelectionModel().getSelectedItem();
         if (selectedBill == null) return;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("payment.fxml"));
+
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("payment.fxml"));
             Parent root = loader.load();
             PaymentController dialogController = loader.getController();
             dialogController.setBill(selectedBill);
-            Stage stage = new Stage();
-            stage.setTitle("Complete Payment");
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL); 
-            stage.showAndWait(); 
-            if (dialogController.isPaymentConfirmed()) {
-                if (billDAO.getPendingItems(selectedBill.getId()).isEmpty()) {
-                    billDAO.updateBillStatus(selectedBill.getId());
-                }
-                loadPendingBills(); 
-            }
+            App.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }

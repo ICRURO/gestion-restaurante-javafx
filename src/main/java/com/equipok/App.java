@@ -34,6 +34,12 @@ public class App extends Application {
         stage.centerOnScreen();
     }
 
+    public static void setRoot(Parent root) {
+        scene.setRoot(root);
+        stage.sizeToScene();
+        stage.centerOnScreen();
+    }
+
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
