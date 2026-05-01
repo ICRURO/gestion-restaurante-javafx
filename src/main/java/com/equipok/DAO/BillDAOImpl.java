@@ -6,71 +6,77 @@ import com.equipok.ConexionDB;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BillDAOImpl implements IBillDAO {
 
     @Override
-public boolean saveBill(Bill bill, List<Product> products) {
-    String sqlBill = "INSERT INTO bills (table_id, items, total, status_bill) VALUES (?, ?, ?, 'PENDING')";
-    String sqlItem = "INSERT INTO bill_items (bill_id, product_name, price, status) VALUES (?, ?, ?, 'PENDING')";
-
-    try (Connection con = ConexionDB.obtenerConexion()) {
-        con.setAutoCommit(false); 
-        try (PreparedStatement psB = con.prepareStatement(sqlBill, Statement.RETURN_GENERATED_KEYS)) {
-            psB.setInt(1, bill.getTableId());
-            psB.setString(2, "Pedido en mesa " + bill.getTableId());
-            psB.setDouble(3, bill.getTotal());
-            psB.executeUpdate();
-            try (ResultSet rs = psB.getGeneratedKeys()) {
-                if (rs.next()) {
-                    int billId = rs.getInt(1);
-                    bill.setId(billId);
-                    try (PreparedStatement psI = con.prepareStatement(sqlItem)) {
-                        for (Product p : products) {
-                            psI.setInt(1, billId);
-                            psI.setString(2, p.getName());
-                            psI.setDouble(3, p.getPrice());
-                            psI.addBatch(); 
+    public boolean saveBill(Bill bill, List<Product> products) {
+        String sqlBill = "INSERT INTO bills (table_id, items, total, status_bill) VALUES (?, ?, ?, 'PENDING')";
+        String sqlItem = "INSERT INTO bill_items (bill_id, product_name, price, status) VALUES (?, ?, ?, 'PENDING')";
+        try (Connection con = ConexionDB.obtenerConexion()) {
+            con.setAutoCommit(false); 
+            try (PreparedStatement psB = con.prepareStatement(sqlBill, Statement.RETURN_GENERATED_KEYS)) {
+                psB.setInt(1, bill.getTableId());
+                String itemNames = products.stream().map(Product::getName).collect(Collectors.joining(", "));
+                if (itemNames.isEmpty()) itemNames = "Pedido en mesa " + bill.getTableId();
+                psB.setString(2, itemNames);
+                
+                psB.setDouble(3, bill.getTotal());
+                psB.executeUpdate();
+                try (ResultSet rs = psB.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        int billId = rs.getInt(1);
+                        bill.setId(billId);
+                        try (PreparedStatement psI = con.prepareStatement(sqlItem)) {
+                            for (Product p : products) {
+                                psI.setInt(1, billId);
+                                psI.setString(2, p.getName());
+                                psI.setDouble(3, p.getPrice());
+                                psI.addBatch(); 
+                            }
+                            psI.executeBatch();
                         }
-                        psI.executeBatch();
-                    }
-                    try (PreparedStatement psT = con.prepareStatement("UPDATE tables SET status_table = 'OCCUPIED' WHERE table_id = ?")) {
-                        psT.setInt(1, bill.getTableId());
-                        psT.executeUpdate();
+                        try (PreparedStatement psT = con.prepareStatement("UPDATE tables SET status_table = 'OCCUPIED' WHERE table_id = ?")) {
+                            psT.setInt(1, bill.getTableId());
+                            psT.executeUpdate();
+                        }
                     }
                 }
+                con.commit(); 
+                return true;
+            } catch (SQLException e) {
+                con.rollback(); 
+                e.printStackTrace();
+                return false;
             }
-            con.commit(); 
-            return true;
         } catch (SQLException e) {
-            con.rollback(); 
             e.printStackTrace();
             return false;
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
     }
-}
 
 @Override
-public List<Bill> getUnpaidBills() {
-    List<Bill> bills = new ArrayList<>();
-    String sql = "SELECT * FROM bills WHERE status_bill = 'PENDING'";
-    try (Connection con = ConexionDB.obtenerConexion();
-         PreparedStatement ps = con.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-        while (rs.next()) {
-            Bill b = new Bill(rs.getInt("id"), rs.getInt("table_id"), rs.getDouble("total"));
-            b.setDiscount(rs.getDouble("discount"));
-            b.setPaidAmount(rs.getDouble("paid_amount"));
-            bills.add(b);
+    public List<Bill> getUnpaidBills() {
+        List<Bill> bills = new ArrayList<>();
+        String sql = "SELECT * FROM bills WHERE status_bill = 'PENDING'";
+        try (Connection con = ConexionDB.obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Bill b = new Bill(rs.getInt("id"), rs.getInt("table_id"), rs.getDouble("total"));
+                b.setDiscount(rs.getDouble("discount"));
+                b.setPaidAmount(rs.getDouble("paid_amount"));
+                List<Product> pendingItems = getPendingItems(b.getId());
+                String itemsNames = pendingItems.stream().map(Product::getName).collect(Collectors.joining(", "));
+                b.setItems(itemsNames.isEmpty() ? "Sin artículos pendientes" : itemsNames);
+                bills.add(b);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return bills;
     }
-    return bills;
-}
 
     @Override
     public List<Product> getPendingItems(int billId) {
@@ -90,9 +96,10 @@ public List<Bill> getUnpaidBills() {
     @Override
     public boolean processPayment(Bill bill, List<Product> itemsToPay, double tip, double discount, String method) {
         double subtotal = itemsToPay.stream().mapToDouble(Product::getPrice).sum();
-        String sqlSale = "INSERT INTO sales (bill_id, table_id, subtotal, tip, total, payment_method) VALUES (?, ?, ?, ?, ?, ?)";
+        String sqlSale = "INSERT INTO sales (bill_id, table_id, subtotal, tip, total, payment_method, items) VALUES (?, ?, ?, ?, ?, ?, ?)";
         String sqlMarkItem = "UPDATE bill_items SET status = 'PAID' WHERE bill_id = ? AND product_name = ? AND status = 'PENDING' LIMIT 1";
         String sqlUpdateBill = "UPDATE bills SET paid_amount = paid_amount + ?, discount = ? WHERE id = ?";
+        String paidItems = itemsToPay.stream().map(Product::getName).collect(Collectors.joining(", "));
         try (Connection conn = ConexionDB.obtenerConexion()) {
             conn.setAutoCommit(false);
             try (PreparedStatement psS = conn.prepareStatement(sqlSale);
@@ -104,6 +111,7 @@ public List<Bill> getUnpaidBills() {
                 psS.setDouble(4, tip);
                 psS.setDouble(5, subtotal + tip);
                 psS.setString(6, method);
+                psS.setString(7, paidItems);
                 psS.executeUpdate();
                 for (Product p : itemsToPay) {
                     psI.setInt(1, bill.getId());
@@ -143,6 +151,9 @@ public List<Bill> getUnpaidBills() {
                 Bill b = new Bill(rs.getInt("id"), rs.getInt("table_id"), rs.getDouble("total"));
                 b.setDiscount(rs.getDouble("discount"));
                 b.setPaidAmount(rs.getDouble("paid_amount"));
+                List<Product> pendingItems = getPendingItems(b.getId());
+                String itemsNames = pendingItems.stream().map(Product::getName).collect(Collectors.joining(", "));
+                b.setItems(itemsNames.isEmpty() ? "Sin artículos pendientes" : itemsNames);
                 return b;
             }
         } catch (SQLException e) {
@@ -154,8 +165,9 @@ public List<Bill> getUnpaidBills() {
     @Override
     public boolean addProductsToExistingBill(int billId, List<Product> products) {
         String sqlItem = "INSERT INTO bill_items (bill_id, product_name, price, status) VALUES (?, ?, ?, 'PENDING')";
-        String sqlUpdateTotal = "UPDATE bills SET total = total + ? WHERE id = ?";
+        String sqlUpdateTotal = "UPDATE bills SET total = total + ?, items = CONCAT(items, ', ', ?) WHERE id = ?";
         double addedTotal = 0;
+        String newItems = products.stream().map(Product::getName).collect(Collectors.joining(", "));
         try (Connection con = ConexionDB.obtenerConexion()) {
             con.setAutoCommit(false);
             try (PreparedStatement psI = con.prepareStatement(sqlItem);
@@ -169,7 +181,8 @@ public List<Bill> getUnpaidBills() {
                 }
                 psI.executeBatch();
                 psU.setDouble(1, addedTotal);
-                psU.setInt(2, billId);
+                psU.setString(2, newItems);
+                psU.setInt(3, billId);
                 psU.executeUpdate();
                 con.commit();
                 return true;

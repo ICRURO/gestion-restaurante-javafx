@@ -5,6 +5,7 @@ import com.equipok.DAO.IBillDAO;
 import com.equipok.model.Bill;
 import com.equipok.model.Product;
 import java.util.List;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,15 +21,32 @@ public class OrderTakingController {
     @FXML private TableColumn<Product, Double> colPrice;
     @FXML private ComboBox<String> tableComboBox;
     @FXML private ComboBox<String> waiterComboBox;
+    @FXML private ListView<Product> cartListView;
+    
+    private ObservableList<Product> cartProducts = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
         colItem.setCellValueFactory(new PropertyValueFactory<>("name"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        orderTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        orderTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         loadProducts();
         loadTables();
         loadWaiters();
+        if (cartListView != null) {
+            cartListView.setItems(cartProducts);
+            cartListView.setCellFactory(param -> new ListCell<Product>() {
+                @Override
+                protected void updateItem(Product item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        setText(item.getName() + " - $" + String.format("%.2f", item.getPrice()));
+                    }
+                }
+            });
+        }
     }
 
     private void loadProducts() {
@@ -69,13 +87,31 @@ public class OrderTakingController {
     }
 
     @FXML
+    private void handleAddToCart() {
+        Product selected = orderTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            mostrarAlerta("Error", "Selecciona un producto del menú primero.", Alert.AlertType.WARNING);
+            return;
+        }
+        cartProducts.add(new Product(selected.getName(), selected.getPrice()));
+    }
+
+    @FXML
+    private void handleRemoveFromCart() {
+        Product selected = cartListView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            cartProducts.remove(selected);
+        }
+    }
+
+    @FXML
     private void handleConfirmOrder() {
         if (tableComboBox.getValue() == null || waiterComboBox.getValue() == null) {
             mostrarAlerta("Error", "Debes seleccionar una mesa y un mesero.", Alert.AlertType.ERROR);
             return;
         }
 
-        List<Product> selectedProducts = orderTable.getSelectionModel().getSelectedItems();
+        List<Product> selectedProducts = new ArrayList<>(cartProducts);
         if (selectedProducts.isEmpty()) {
             mostrarAlerta("Error", "Debes seleccionar al menos un producto.", Alert.AlertType.ERROR);
             return;

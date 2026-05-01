@@ -4,28 +4,28 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.Pane?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" 
-      xmlns:fx="http://javafx.com/fxml/1" 
-      fx:controller="com.equipok.SalesReportController">
-    
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
 
-    <Label text="Reporte de Ventas" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-
-    <TableView fx:id="salesTable" prefHeight="400.0" prefWidth="600.0">
-        <columns>
-            <TableColumn fx:id="colId" prefWidth="75.0" text="ID Venta" />
-            <TableColumn fx:id="colTotal" prefWidth="100.0" text="Total ($)" />
-            <TableColumn fx:id="colMethod" prefWidth="150.0" text="Método de Pago" />
-            <TableColumn fx:id="colDate" prefWidth="200.0" text="Fecha" />
-        </columns>
-    </TableView>
-
-    <Button text="Regresar" onAction="#goBack" style="-fx-pref-width: 100px;" />
-    
-</VBox>
+<Pane styleClass="sub-pane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.SalesReportController">
+   <children>
+   
+          <TableView fx:id="salesTable" layoutX="40.0" layoutY="94.0" prefHeight="450.0" prefWidth="900.0">
+           <columns>
+               <TableColumn fx:id="colId" prefWidth="67.0" text="ID Venta" />
+               <TableColumn fx:id="colDate" prefWidth="136.0" text="Fecha" />
+            <TableColumn fx:id="colItems" prefWidth="462.0" text="Producto" />
+               <TableColumn fx:id="colMethod" prefWidth="121.0" text="Método de Pago" />
+               <TableColumn fx:id="colTotal" prefWidth="109.0" text="Total ($)" />
+           </columns>
+       </TableView>
+   
+          <Label layoutX="40.0" layoutY="29.0" styleClass="header-title" text="Reporte de Ventas" />
+      <Pane layoutX="40.0" layoutY="591.0" prefHeight="75.0" prefWidth="200.0" styleClass="card-horizontal-pane">
+         <children>
+         
+                      <Button layoutX="14.0" layoutY="17.0" onAction="#goBack" styleClass="btn-secondary" text="Regresar" />
+         </children>
+      </Pane>
+   </children>
+</Pane>

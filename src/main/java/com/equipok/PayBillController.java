@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
 
 public class PayBillController {
     
@@ -59,7 +60,13 @@ public class PayBillController {
             Parent root = loader.load();
             PaymentController dialogController = loader.getController();
             dialogController.setBill(selectedBill);
-            App.setRoot(root);
+            StackPane mainPane = (StackPane) btnPay.getScene().lookup("#mainPane");
+            if (mainPane != null) {
+                mainPane.getChildren().clear();
+                mainPane.getChildren().add(root);
+            } else {
+                App.setRoot(root); 
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

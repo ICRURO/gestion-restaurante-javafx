@@ -10,6 +10,7 @@ public class Bill {
     private String status;
     private double discount;    
     private double paidAmount;
+    private String items;
     private List<Product> itemList = new ArrayList<>(); 
 
     public Bill(int id, int tableId, double total) {
@@ -66,8 +67,8 @@ public class Bill {
         this.paidAmount = paidAmount;
     }
 
-    public List<Product> getItems() {
-        return itemList;
+    public String getItems() {
+        return items;
     }
 
     public void setItemList(List<Product> itemList) {
@@ -81,5 +82,9 @@ public class Bill {
 
     public List<Product> getItemList() {
         return itemList;
+    }
+
+    public void setItems(String items) {
+        this.items = items;
     }
 }

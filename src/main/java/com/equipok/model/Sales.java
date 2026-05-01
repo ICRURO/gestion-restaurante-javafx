@@ -11,7 +11,7 @@ public class Sales {
     private double totalFinal; 
     private String paymentMethod; 
     private LocalDateTime saleDate;
-
+    private String items;
     public Sales() {}
 
     public Sales(int billId, int tableId, double subtotal, double tip, String method) {
@@ -86,5 +86,13 @@ public class Sales {
 
     public void setSaleDate(LocalDateTime saleDate) {
         this.saleDate = saleDate;
+    }
+
+    public String getItems() {
+        return items;
+    }
+
+    public void setItems(String items) {
+        this.items = items;
     }
 }

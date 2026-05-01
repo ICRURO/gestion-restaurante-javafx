@@ -18,6 +18,7 @@ public class SalesReportController {
     @FXML private TableColumn<Sales, Double> colTotal;
     @FXML private TableColumn<Sales, String> colMethod;
     @FXML private TableColumn<Sales, LocalDateTime> colDate; 
+    @FXML private TableColumn<Sales, String> colItems;
 
     private ISalesDAO salesDAO = new SalesDAOImpl();
 
@@ -27,6 +28,7 @@ public class SalesReportController {
         colTotal.setCellValueFactory(new PropertyValueFactory<>("totalFinal")); 
         colMethod.setCellValueFactory(new PropertyValueFactory<>("paymentMethod"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("saleDate"));
+        colItems.setCellValueFactory(new PropertyValueFactory<>("items"));
 
         loadSales();
     }

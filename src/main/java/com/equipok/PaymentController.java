@@ -14,6 +14,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -63,8 +66,6 @@ public class PaymentController {
 
     private double xOffset = 0;
     private double yOffset = 0;
-
-
     private boolean paymentConfirmed = false;
     private Bill currentBill;
     private IBillDAO billDAO = new BillDAOImpl();
@@ -75,27 +76,22 @@ public class PaymentController {
             colProductName.setCellValueFactory(new PropertyValueFactory<>("name"));
             colProductPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
             productsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-            
             productsTable.getSelectionModel().getSelectedItems().addListener((ListChangeListener.Change<? extends Product> c) -> {
                 calculateChange(txtReceived.getText());
             });
-
             if (barraSuperior != null) {
-        barraSuperior.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-
-        barraSuperior.setOnMouseDragged(event -> {
-            Stage stage = (Stage) barraSuperior.getScene().getWindow();
-            stage.setX(event.getScreenX() - xOffset);
-            stage.setY(event.getScreenY() - yOffset);
-        });
-    }
+                barraSuperior.setOnMousePressed(event -> {
+                    xOffset = event.getSceneX();
+                    yOffset = event.getSceneY();
+                });
+                barraSuperior.setOnMouseDragged(event -> {
+                    Stage stage = (Stage) barraSuperior.getScene().getWindow();
+                    stage.setX(event.getScreenX() - xOffset);
+                    stage.setY(event.getScreenY() - yOffset);
+                });
+            }
         }
-
         txtTip.disableProperty().bind(chkAddTip.selectedProperty().not());
-
         if (txtDiscount != null && chkAddDiscount != null) {
             txtDiscount.disableProperty().bind(chkAddDiscount.selectedProperty().not());
         }
@@ -159,7 +155,6 @@ public class PaymentController {
         }
     }
 
-
     private void calculateChange(String receivedInput) {
         try {
             double tip = (chkAddTip.isSelected() && !txtTip.getText().isEmpty()) ? Double.parseDouble(txtTip.getText()) : 0;
@@ -205,7 +200,15 @@ public class PaymentController {
 
     private void closeWindow() {
         try {
-            App.setRoot("payBill");
+            StackPane mainPane = (StackPane) btnPay.getScene().lookup("#mainPane");
+            if (mainPane != null) {
+                FXMLLoader loader = new FXMLLoader(App.class.getResource("payBill.fxml"));
+                Parent root = loader.load();
+                mainPane.getChildren().clear();
+                mainPane.getChildren().add(root);
+            } else {
+                App.setRoot("payBill");
+            }
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }

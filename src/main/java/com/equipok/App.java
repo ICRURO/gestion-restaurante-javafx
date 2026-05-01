@@ -5,8 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
 import java.io.IOException;
 
 /**
@@ -20,8 +18,9 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
-
-        stage.initStyle(StageStyle.UNDECORATED);
+        //Ya no se van a manejar los botones tipo MAC por ahora
+        //stage.initStyle(StageStyle.UNDECORATED); 
+        stage.setResizable(false);
         scene = new Scene(loadFXML("login"));
         stage.setScene(scene);
         stage.setTitle("Gestión de Restaurante - Login");
@@ -29,12 +28,14 @@ public class App extends Application {
     }
 
     public static void setRoot(String fxml) throws IOException {
+        
         scene.setRoot(loadFXML(fxml));
         stage.sizeToScene();
         stage.centerOnScreen();
     }
 
     public static void setRoot(Parent root) {
+        
         scene.setRoot(root);
         stage.sizeToScene();
         stage.centerOnScreen();

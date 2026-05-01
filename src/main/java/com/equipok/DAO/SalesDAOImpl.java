@@ -16,24 +16,19 @@ public class SalesDAOImpl implements ISalesDAO {
         try (Connection conn = ConexionDB.obtenerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
-
             while (rs.next()) {
                 Sales sale = new Sales(); 
-                
                 sale.setId(rs.getInt("id"));
                 sale.setBillId(rs.getInt("bill_id"));
                 sale.setTableId(rs.getInt("table_id"));
                 sale.setSubtotal(rs.getDouble("subtotal"));
                 sale.setTip(rs.getDouble("tip"));
-                
                 sale.setTotalFinal(rs.getDouble("total")); 
-                
                 sale.setPaymentMethod(rs.getString("payment_method"));
-                
+                sale.setItems(rs.getString("items"));
                 if (rs.getTimestamp("sale_date") != null) {
                     sale.setSaleDate(rs.getTimestamp("sale_date").toLocalDateTime());
-                }
-                
+                }  
                 salesList.add(sale);
             }
         } catch (SQLException e) {

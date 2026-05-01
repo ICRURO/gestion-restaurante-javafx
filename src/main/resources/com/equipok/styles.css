@@ -290,3 +290,31 @@
     -fx-font-size: 13px;
     -fx-font-weight: bold;
 }
+
+.main-pane {
+    -fx-background-color: #F8FAFC;
+    -fx-pref-width: 1200px;
+    -fx-pref-height: 700px;
+}
+
+.sub-pane {
+    -fx-background-color: #F8FAFC;
+    -fx-pref-width: 980px;
+    -fx-pref-height: 700px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);
+}
+
+.card-horizontal-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 20px;
+    -fx-padding: 20px;
+    -fx-pref-width: 900px;
+}
+
+.table-view .table-cell {
+    -fx-text-overrun: clip;
+    -fx-wrap-text: true;
+}
