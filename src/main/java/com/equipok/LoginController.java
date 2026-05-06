@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -34,9 +33,6 @@ public class LoginController {
     private Button loginButton;
 
     @FXML
-    private Pane barraSuperior;
-
-    @FXML
     public void initialize() {
         if (chkShowPassword != null && txtPasswordVisible != null) {
             txtPasswordVisible.textProperty().bindBidirectional(txtPassword.textProperty());
@@ -46,19 +42,9 @@ public class LoginController {
             txtPassword.managedProperty().bind(chkShowPassword.selectedProperty().not());
         }
 
-        if (barraSuperior != null) {
-        barraSuperior.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
+        
+    }
 
-        barraSuperior.setOnMouseDragged(event -> {
-            Stage stage = (Stage) barraSuperior.getScene().getWindow();
-            stage.setX(event.getScreenX() - xOffset);
-            stage.setY(event.getScreenY() - yOffset);
-        });
-    }
-    }
 
     @FXML
     private void handleLogin() throws IOException {
@@ -98,21 +84,5 @@ public class LoginController {
     private void minimizeApp(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setIconified(true);
-    }
-
-    private double xOffset = 0;
-    private double yOffset = 0;
-
-    @FXML
-    private void barraSuperiorPresionada(MouseEvent event) {
-        xOffset = event.getSceneX();
-        yOffset = event.getSceneY();
-    }
-
-    @FXML
-    private void barraSuperiorArrastrada(MouseEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setX(event.getScreenX() - xOffset);
-        stage.setY(event.getScreenY() - yOffset);
     }
 }

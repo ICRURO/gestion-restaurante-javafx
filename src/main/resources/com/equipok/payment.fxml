@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
 <StackPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.PaymentController">
    <children>
       <Pane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #F8FAFC;">
@@ -44,7 +43,7 @@
                   <Label fx:id="lblTotal" layoutX="133.0" layoutY="413.0" styleClass="label-main" stylesheets="@styles.css" />
                </children>
             </Pane>
-            <Pane layoutX="498.0" layoutY="88.0" prefHeight="389.0" prefWidth="360.0" styleClass="card-panel" stylesheets="@styles.css">
+            <Pane layoutX="498.0" layoutY="88.0" prefHeight="361.0" prefWidth="360.0" styleClass="card-panel" stylesheets="@styles.css">
                <children>
                   <Label layoutX="26.0" layoutY="22.0" styleClass="label-main" stylesheets="@styles.css" text="Selecciona método de pago" />
                   
@@ -57,12 +56,16 @@
                         <Font size="44.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btnPay" layoutX="137.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleConfirm" styleClass="btn-primary" stylesheets="@styles.css" text="Pagar" />
+                  <Button fx:id="btnPay" layoutX="139.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleConfirm" styleClass="btn-primary" stylesheets="@styles.css" text="Pagar" />
                   <Label fx:id="lblChange" layoutX="92.0" layoutY="223.0" styleClass="label-main" stylesheets="@styles.css" />
                </children>
             </Pane>
-            <Button layoutX="759.0" layoutY="509.0" mnemonicParsing="false" onAction="#handleCancel" styleClass="btn-secondary" stylesheets="@styles.css" text="Cancelar" />
             <Pane fx:id="barraSuperior" prefHeight="40.0" prefWidth="900.0" />
+            <Pane layoutX="498.0" layoutY="475.0" prefHeight="75.0" prefWidth="354.0" styleClass="card-panel" stylesheets="@styles.css">
+               <children>
+                  <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleCancel" styleClass="btn-secondary" stylesheets="@styles.css" text="Cancelar" />
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>

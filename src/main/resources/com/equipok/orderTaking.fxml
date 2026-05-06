@@ -14,7 +14,7 @@
    <children>
       <Pane layoutX="40.0" layoutY="599.0" prefHeight="69.0" prefWidth="200.0" styleClass="card-horizontal-pane" stylesheets="@styles.css">
          <children>
-              <Button layoutX="14.0" layoutY="15.0" onAction="#handleCancel" styleClass="btn-secondary" text="Cancelar" />
+              <Button layoutX="14.0" layoutY="15.0" onAction="#handleCancel" styleClass="btn-secondary" text="Regresar" />
          </children>
       </Pane>
       <Pane layoutX="586.0" layoutY="26.0" prefHeight="550.0" prefWidth="354.0" styleClass="card-panel">
