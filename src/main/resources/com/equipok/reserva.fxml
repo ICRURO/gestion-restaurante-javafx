@@ -74,7 +74,7 @@
       </Pane>
       <Pane layoutX="40.0" layoutY="592.0" prefHeight="75.0" prefWidth="200.0" styleClass="card-horizontal-pane">
          <children>
-            <Button fx:id="btnRegresar" layoutX="21.0" layoutY="19.0" mnemonicParsing="false" onAction="#regresarAlMenu" styleClass="btn-secondary" text="Regresar">
+            <Button fx:id="btnRegresar" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#regresarAlMenu" styleClass="btn-secondary" stylesheets="@styles.css" text="Regresar">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
@@ -97,7 +97,7 @@
       </Pane>
       <Pane layoutX="700.0" layoutY="436.0" prefHeight="108.0" prefWidth="240.0" styleClass="card-panel">
          <children>
-            <Button fx:id="btnConfirmar" layoutX="62.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleConfirmarReserva" styleClass="btn-primary" text="Confirmar">
+            <Button fx:id="btnConfirmar" layoutX="62.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleConfirmarReserva" styleClass="btn-primary" stylesheets="@styles.css" text="Confirmar">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>

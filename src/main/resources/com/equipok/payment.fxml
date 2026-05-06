@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.PaymentController">
+<StackPane styleClass="sub-pane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.PaymentController">
    <children>
       <Pane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #F8FAFC;">
          <children>
@@ -21,12 +21,12 @@
                   <Font name="System Bold" size="35.0" />
                </font>
             </Label>
-            <Pane layoutX="47.0" layoutY="88.0" prefHeight="462.0" prefWidth="400.0" styleClass="card-panel" stylesheets="@styles.css">
+            <Pane layoutX="47.0" layoutY="88.0" prefHeight="462.0" prefWidth="425.0" styleClass="card-panel" stylesheets="@styles.css">
                <children>
-                  <TableView fx:id="productsTable" layoutY="54.0" prefHeight="227.0" prefWidth="400.0" stylesheets="@styles.css">
+                  <TableView fx:id="productsTable" layoutY="54.0" prefHeight="227.0" prefWidth="425.0" stylesheets="@styles.css">
                     <columns>
-                      <TableColumn fx:id="colProductName" prefWidth="275.0" text="Platillo" />
-                      <TableColumn fx:id="colProductPrice" prefWidth="123.0" text="Precio" />
+                      <TableColumn fx:id="colProductName" prefWidth="307.0" text="Platillo" />
+                      <TableColumn fx:id="colProductPrice" prefWidth="110.0" text="Precio" />
                     </columns>
                   </TableView>
                   <Label layoutX="21.0" layoutY="23.0" styleClass="label-main" stylesheets="@styles.css" text="Resumen de consumo" />
@@ -43,7 +43,7 @@
                   <Label fx:id="lblTotal" layoutX="133.0" layoutY="413.0" styleClass="label-main" stylesheets="@styles.css" />
                </children>
             </Pane>
-            <Pane layoutX="498.0" layoutY="88.0" prefHeight="361.0" prefWidth="360.0" styleClass="card-panel" stylesheets="@styles.css">
+            <Pane layoutX="515.0" layoutY="88.0" prefHeight="292.0" prefWidth="425.0" styleClass="card-panel" stylesheets="@styles.css">
                <children>
                   <Label layoutX="26.0" layoutY="22.0" styleClass="label-main" stylesheets="@styles.css" text="Selecciona método de pago" />
                   
@@ -56,14 +56,18 @@
                         <Font size="44.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btnPay" layoutX="139.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleConfirm" styleClass="btn-primary" stylesheets="@styles.css" text="Pagar" />
                   <Label fx:id="lblChange" layoutX="92.0" layoutY="223.0" styleClass="label-main" stylesheets="@styles.css" />
                </children>
             </Pane>
             <Pane fx:id="barraSuperior" prefHeight="40.0" prefWidth="900.0" />
-            <Pane layoutX="498.0" layoutY="475.0" prefHeight="75.0" prefWidth="354.0" styleClass="card-panel" stylesheets="@styles.css">
+            <Pane layoutX="40.0" layoutY="584.0" prefHeight="75.0" prefWidth="354.0" styleClass="card-horizontal-pane" stylesheets="@styles.css">
                <children>
                   <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleCancel" styleClass="btn-secondary" stylesheets="@styles.css" text="Cancelar" />
+               </children>
+            </Pane>
+            <Pane layoutX="515.0" layoutY="425.0" prefHeight="125.0" prefWidth="425.0" styleClass="card-panel">
+               <children>
+                  <Button fx:id="btnPay" layoutX="80.0" layoutY="34.0" mnemonicParsing="false" onAction="#handleConfirm" prefHeight="57.0" prefWidth="265.0" styleClass="btn-primary" stylesheets="@styles.css" text="Pagar" />
                </children>
             </Pane>
          </children>
