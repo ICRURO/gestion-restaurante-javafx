@@ -19,8 +19,6 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
-        //Ya no se van a manejar los botones tipo MAC por ahora
-        //stage.initStyle(StageStyle.UNDECORATED); 
         stage.setResizable(false);
         stage.setTitle("Sistema Gestión Restaurante");
         try {

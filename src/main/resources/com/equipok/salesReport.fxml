@@ -25,9 +25,9 @@
          <children>
          
                       <Button layoutX="14.0" layoutY="17.0" onAction="#goBack" styleClass="btn-secondary" text="Regresar" />
+            <Button layoutX="765.0" layoutY="17.0" mnemonicParsing="false" onAction="#generatePDF" styleClass="btn-primary" text="Generar PDF" />
+            <ComboBox fx:id="cbFilter" layoutX="596.0" layoutY="19.0" prefWidth="150.0" promptText="filtrar por" />
          </children>
       </Pane>
-      <ComboBox fx:id="cbFilter" layoutX="367.0" layoutY="31.0" prefWidth="150.0" promptText="filtrar por" />
-      <Button layoutX="639.0" layoutY="37.0" mnemonicParsing="false" onAction="#generatePDF" text="Generar PDF" />
    </children>
 </Pane>

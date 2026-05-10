@@ -14,7 +14,6 @@ public class EmpleadoDAOImpl implements IEmpleadoDAO {
     @Override
     public boolean registrarEmpleado(Empleado empleado) {
         String sql = "INSERT INTO empleados (nombre, puesto, telefono, turno) VALUES (?, ?, ?, ?)";
-        // Cambiamos getConnection() por obtenerConexion()
         try (Connection con = ConexionDB.obtenerConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
             
@@ -35,7 +34,6 @@ public class EmpleadoDAOImpl implements IEmpleadoDAO {
     public List<Empleado> listarEmpleados() {
         List<Empleado> lista = new ArrayList<>();
         String sql = "SELECT * FROM empleados";
-        // Cambiamos getConnection() por obtenerConexion()
         try (Connection con = ConexionDB.obtenerConexion();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -58,7 +56,6 @@ public class EmpleadoDAOImpl implements IEmpleadoDAO {
     @Override
     public boolean eliminarEmpleado(int id) {
         String sql = "DELETE FROM empleados WHERE id = ?";
-        // Cambiamos getConnection() por obtenerConexion()
         try (Connection con = ConexionDB.obtenerConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
             

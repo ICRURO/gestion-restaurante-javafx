@@ -13,7 +13,7 @@
          <children>
             <Button fx:id="btnPay" layoutX="803.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleProcessPayment" styleClass="btn-primary" stylesheets="@styles.css" text="Pagar" />
             <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#switchToPrimary" styleClass="btn-secondary" stylesheets="@styles.css" text="Regresar" />
-            <Button fx:id="btnEdit" layoutX="664.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleEditBill" text="Editar" />
+            <Button fx:id="btnEdit" layoutX="652.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleEditBill" styleClass="btn-primary" text="Editar pedido" />
          </children>
       </Pane>
       <Label layoutX="40.0" layoutY="37.0" styleClass="header-title" stylesheets="@styles.css" text="Cuentas activas">

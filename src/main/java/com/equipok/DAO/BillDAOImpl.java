@@ -21,7 +21,6 @@ public class BillDAOImpl implements IBillDAO {
                 String itemNames = products.stream().map(Product::getName).collect(Collectors.joining(", "));
                 if (itemNames.isEmpty()) itemNames = "Pedido en mesa " + bill.getTableId();
                 psB.setString(2, itemNames);
-                
                 psB.setDouble(3, bill.getTotal());
                 psB.executeUpdate();
                 try (ResultSet rs = psB.getGeneratedKeys()) {
@@ -211,5 +210,43 @@ public class BillDAOImpl implements IBillDAO {
                 return false;
             } catch (SQLException e) { con.rollback(); return false; }
         } catch (SQLException e) { return false; }
+    }
+
+    @Override
+    public boolean deleteBill(int billId) {
+        String getTableSql = "SELECT table_id FROM bills WHERE id = ?";
+        String deleteItemsSql = "DELETE FROM bill_items WHERE bill_id = ?";
+        String deleteBillSql = "DELETE FROM bills WHERE id = ?";
+        String updateTableSql = "UPDATE tables SET status_table = 'AVAILABLE' WHERE table_id = ?";
+        try (Connection con = ConexionDB.obtenerConexion()) {
+            con.setAutoCommit(false);
+            try {
+                int tableId = -1;
+                try (PreparedStatement psT = con.prepareStatement(getTableSql)) {
+                    psT.setInt(1, billId);
+                    try (ResultSet rs = psT.executeQuery()) {
+                        if (rs.next()) {
+                            tableId = rs.getInt("table_id");
+                        }
+                    }
+                }
+                try (PreparedStatement psI = con.prepareStatement(deleteItemsSql)) {
+                    psI.setInt(1, billId);
+                    psI.executeUpdate();
+                }
+                try (PreparedStatement psB = con.prepareStatement(deleteBillSql)) {
+                    psB.setInt(1, billId);
+                    psB.executeUpdate();
+                }
+                if (tableId != -1) {
+                    try (PreparedStatement psU = con.prepareStatement(updateTableSql)) {
+                        psU.setInt(1, tableId);
+                        psU.executeUpdate();
+                    }
+                }
+                con.commit();
+                return true;
+            } catch (SQLException e) { con.rollback(); e.printStackTrace(); return false; }
+        } catch (SQLException e) { e.printStackTrace(); return false; }
     }
 }

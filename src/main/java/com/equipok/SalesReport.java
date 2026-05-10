@@ -16,19 +16,15 @@ public class SalesReport {
         
         if (job != null && job.showPrintDialog(null)) {
             VBox reportBox = new VBox(5);
-            reportBox.setStyle("-fx-padding: 20; -fx-background-color: white; -fx-font-family: monospace;");
             reportBox.getChildren().add(new Label("REPORTE DE VENTAS - " + filterName));
-            reportBox.getChildren().add(new Label("-----------------------------------------------------------"));
-            
+            reportBox.getChildren().add(new Label("-----------------------------------------------------------")); 
             double totalAcumulado = 0;
             Map<String, Integer> popularityMap = new HashMap<>();
-
             for (Sales s : salesList) {
                 String line = String.format("Ticket #%-5d | Fecha: %s | Total: $%7.2f", s.getId(), s.getSaleDate().toLocalDate().toString(), s.getTotalFinal());
                 reportBox.getChildren().add(new Label(line));
-                reportBox.getChildren().add(new Label("  -> Artículos: " + (s.getItems() != null ? s.getItems() : "Ninguno")));
+                reportBox.getChildren().add(new Label("  --- Artículos: " + (s.getItems() != null ? s.getItems() : "Ninguno")));
                 totalAcumulado += s.getTotalFinal();
-                
                 if (s.getItems() != null && !s.getItems().trim().isEmpty()) {
                     String[] itemsArray = s.getItems().split(",\\s*");
                     for (String item : itemsArray) {
@@ -38,17 +34,15 @@ public class SalesReport {
             }
             
             reportBox.getChildren().add(new Label("-----------------------------------------------------------"));
-            reportBox.getChildren().add(new Label(String.format("TOTAL ACUMULADO: $%7.2f", totalAcumulado)));
+            reportBox.getChildren().add(new Label(String.format("TOTAL: $%7.2f", totalAcumulado)));
             reportBox.getChildren().add(new Label("\n-----------------------------------------------------------"));
-            reportBox.getChildren().add(new Label("POPULARIDAD DE PRODUCTOS (MÁS VENDIDOS)"));
+            reportBox.getChildren().add(new Label("RESUMEN DE PRODUCTOS MÁS VENDIDOS"));
             reportBox.getChildren().add(new Label("-----------------------------------------------------------"));
-            
             List<Map.Entry<String, Integer>> sortedPopularity = new ArrayList<>(popularityMap.entrySet());
             sortedPopularity.sort((a, b) -> b.getValue().compareTo(a.getValue())); 
             for (Map.Entry<String, Integer> entry : sortedPopularity) {
                 reportBox.getChildren().add(new Label(String.format(" %-30s : %d vendidos", entry.getKey(), entry.getValue())));
             }
-
             if (job.printPage(reportBox)) { job.endJob(); return true; }
         }
         return false;

@@ -12,4 +12,5 @@ public interface IBillDAO {
     void updateBillStatus(int billId);
     Bill getActiveBillByTable(int tableId);
     boolean addProductsToExistingBill(int billId, List<Product> products);
+    boolean deleteBill(int billId);
 }
