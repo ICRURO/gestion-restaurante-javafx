@@ -34,3 +34,8 @@
 -- Fernando 09/05/2026
 
     Se implemento el caso de uso 8 que es la gestion de mesas
+
+-- Ian 10/may/2026
+
+    Se implementó el caso de uso Modificar pedido y generar reporte diario, semanal y mensual.
+    Se optimizó el código de login y del menú principal

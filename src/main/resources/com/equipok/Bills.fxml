@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" styleClass="sub-pane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.PayBillController">
+<Pane maxHeight="-Infinity" styleClass="sub-pane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.BillsController">
    <children>
       <Pane layoutX="40.0" layoutY="591.0" prefHeight="75.0" prefWidth="900.0" styleClass="card-horizontal-pane" stylesheets="@styles.css">
          <children>

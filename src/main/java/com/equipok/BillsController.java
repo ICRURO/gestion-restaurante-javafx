@@ -13,7 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 
-public class PayBillController {
+public class BillsController {
     
     @FXML
     private TableView<Bill> billsTable;
@@ -32,7 +32,6 @@ public class PayBillController {
 
     @FXML
     private Button btnEdit;
-
 
     private IBillDAO billDAO = new BillDAOImpl();
     private ObservableList<Bill> billsList = FXCollections.observableArrayList();
@@ -83,9 +82,7 @@ public class PayBillController {
     private void handleEditBill() {
         Bill selectedBill = billsTable.getSelectionModel().getSelectedItem();
         if (selectedBill == null) return;
-        // Implement bill editing logic here
         try {
-
             FXMLLoader loader = new FXMLLoader(App.class.getResource("EditBill.fxml"));
             Parent root = loader.load();
             EditBillController dialogController = loader.getController();

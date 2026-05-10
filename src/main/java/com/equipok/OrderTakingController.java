@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.StackPane;
+import javafx.scene.Parent;
 import java.io.IOException;
 import java.sql.*;
 
@@ -24,6 +27,7 @@ public class OrderTakingController {
     @FXML private ListView<Product> cartListView;
     
     private ObservableList<Product> cartProducts = FXCollections.observableArrayList();
+    private Bill sourceBill = null;
 
     @FXML
     public void initialize() {
@@ -122,7 +126,7 @@ public class OrderTakingController {
         if (activeBill != null) {
             if (billDAO.addProductsToExistingBill(activeBill.getId(), selectedProducts)) {
                 mostrarAlerta("Éxito", "Productos agregados a la cuenta existente de la mesa " + tableId, Alert.AlertType.INFORMATION);
-                try { App.setRoot("primary"); } catch(IOException e){}
+                try { navigateBack(); } catch(IOException e){}
             } else {
                 mostrarAlerta("Error", "No se pudieron agregar los productos a la cuenta.", Alert.AlertType.ERROR);
             }
@@ -131,7 +135,7 @@ public class OrderTakingController {
             Bill newBill = new Bill(0, tableId, total);
             if (billDAO.saveBill(newBill, selectedProducts)) {
                 mostrarAlerta("Éxito", "Nueva cuenta creada y productos agregados.", Alert.AlertType.INFORMATION);
-                try { App.setRoot("primary"); } catch(IOException e){}
+                try { navigateBack(); } catch(IOException e){}
             } else {
                 mostrarAlerta("Error", "No se pudo crear la nueva cuenta.", Alert.AlertType.ERROR);
             }
@@ -140,7 +144,29 @@ public class OrderTakingController {
 
     @FXML
     private void handleCancel() throws IOException {
-        App.setRoot("primary");
+        navigateBack();
+    }
+
+    private void navigateBack() throws IOException {
+        if (sourceBill != null) {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("EditBill.fxml"));
+            Parent root = loader.load();
+            EditBillController controller = loader.getController();
+            
+            IBillDAO dao = new BillDAOImpl();
+            Bill updatedBill = dao.getActiveBillByTable(sourceBill.getTableId());
+            controller.setBill(updatedBill != null ? updatedBill : sourceBill);
+
+            StackPane mainPane = (StackPane) tableComboBox.getScene().lookup("#mainPane");
+            if (mainPane != null) {
+                mainPane.getChildren().clear();
+                mainPane.getChildren().add(root);
+            } else {
+                App.setRoot(root);
+            }
+        } else {
+            App.setRoot("primary");
+        }
     }
 
     private void mostrarAlerta(String titulo, String contenido, Alert.AlertType tipo) {
@@ -149,5 +175,15 @@ public class OrderTakingController {
         alert.setHeaderText(null);
         alert.setContentText(contenido);
         alert.showAndWait();
+    }
+
+    public void setPreselectedTable(int tableId) {
+        tableComboBox.setValue(String.valueOf(tableId));
+        tableComboBox.setDisable(true);
+    }
+
+    public void setSourceBill(Bill bill) {
+        this.sourceBill = bill;
+        setPreselectedTable(bill.getTableId());
     }
 }

@@ -4,19 +4,15 @@ import com.equipok.DAO.BillDAOImpl;
 import com.equipok.DAO.IBillDAO;
 import com.equipok.model.Bill;
 import com.equipok.model.Product;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class EditBillController {
     @FXML 
@@ -78,5 +74,45 @@ public class EditBillController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void handleAddProducts() {
+        if (currentBill == null) return;
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("orderTaking.fxml"));
+            Parent root = loader.load();
+            
+            OrderTakingController controller = loader.getController();
+            controller.setSourceBill(currentBill);
+            
+            StackPane mainPane = (StackPane) productsTable.getScene().lookup("#mainPane");
+            if (mainPane != null) {
+                mainPane.getChildren().clear();
+                mainPane.getChildren().add(root);
+            } else {
+                App.setRoot(root);
+            }
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleReturn() {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("Bills.fxml"));
+            Parent root = loader.load();
+            
+            StackPane mainPane = (StackPane) productsTable.getScene().lookup("#mainPane");
+            if (mainPane != null) {
+                mainPane.getChildren().clear();
+                mainPane.getChildren().add(root);
+            } else {
+                App.setRoot(root);
+            }
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
     }
 }

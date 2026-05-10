@@ -184,7 +184,7 @@ public class PaymentController {
         try {
             StackPane mainPane = (StackPane) btnPay.getScene().lookup("#mainPane");
             if (mainPane != null) {
-                FXMLLoader loader = new FXMLLoader(App.class.getResource("payBill.fxml"));
+                FXMLLoader loader = new FXMLLoader(App.class.getResource("Bills.fxml"));
                 Parent root = loader.load();
                 mainPane.getChildren().clear();
                 mainPane.getChildren().add(root);

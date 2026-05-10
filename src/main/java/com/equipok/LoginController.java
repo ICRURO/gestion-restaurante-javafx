@@ -1,12 +1,8 @@
-package com.equipok; //Queda pendiente hacerlo bonito
+package com.equipok; //Ya se hizo bonito
 
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
@@ -30,9 +26,6 @@ public class LoginController {
     private CheckBox chkShowPassword;
 
     @FXML
-    private Button loginButton;
-
-    @FXML
     public void initialize() {
         if (chkShowPassword != null && txtPasswordVisible != null) {
             txtPasswordVisible.textProperty().bindBidirectional(txtPassword.textProperty());
@@ -41,10 +34,7 @@ public class LoginController {
             txtPassword.visibleProperty().bind(chkShowPassword.selectedProperty().not());
             txtPassword.managedProperty().bind(chkShowPassword.selectedProperty().not());
         }
-
-        
     }
-
 
     @FXML
     private void handleLogin() throws IOException {
@@ -72,17 +62,5 @@ public class LoginController {
         alert.setTitle(titulo);
         alert.setContentText(mensaje);
         alert.showAndWait();
-    }
-
-    @FXML
-    private void closeApp(MouseEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
-    private void minimizeApp(MouseEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setIconified(true);
     }
 }

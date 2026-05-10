@@ -2,26 +2,14 @@ package com.equipok;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 public class PrimaryController {
-
-    @FXML
-    private Button btnPagarCuenta;
-
-    @FXML
-    private Button btnPedirOrden;
-
-    @FXML
-    private Button btnRegistroVenta;
-
-    @FXML
-    private Pane barraSuperior;
 
     @FXML
     private StackPane mainPane;
@@ -29,11 +17,11 @@ public class PrimaryController {
     @FXML 
     private Pane buttonPane;
     
-    private Node vistaInicio;
+    private Node homeMenu;
 
     @FXML
     public void initialize() {
-        vistaInicio = buttonPane;
+        homeMenu = buttonPane;
     }
     
     @FXML
@@ -43,7 +31,7 @@ public class PrimaryController {
 
     @FXML
     private void switchToPayBill() throws IOException {
-        cargarPantalla("payBill");
+        cargarPantalla("Bills");
     }
     
     @FXML
@@ -74,18 +62,26 @@ public class PrimaryController {
     private void cargarPantalla(String Fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(Fxml + ".fxml"));
-            Parent nuevaVista = loader.load();
+            Parent newView = loader.load();
             mainPane.getChildren().clear();
-            mainPane.getChildren().add(nuevaVista);
+            mainPane.getChildren().add(newView);
         } catch (IOException e) {
-            System.out.println("No se pudo cargar la vista: " + Fxml);
+            showErrorAlert("Error al cargar la vista", Fxml);
             e.printStackTrace();
         }
     }
 
     @FXML
-    private void regresarAlInicio() {
+    private void backToHome() {
         mainPane.getChildren().clear();
-        mainPane.getChildren().add(vistaInicio);
+        mainPane.getChildren().add(homeMenu);
+    }
+
+    private void showErrorAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

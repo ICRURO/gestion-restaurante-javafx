@@ -14,5 +14,7 @@
         </columns>
       </TableView>
       <Button layoutX="683.0" layoutY="619.0" mnemonicParsing="false" onAction="#handleDeleteProduct" text="Button" />
+      <Button layoutX="519.0" layoutY="619.0" mnemonicParsing="false" onAction="#handleAddProducts" text="Añadir platillo" />
+      <Button layoutX="92.0" layoutY="632.0" mnemonicParsing="false" onAction="#handleReturn" text="Regresar" />
    </children>
 </Pane>
