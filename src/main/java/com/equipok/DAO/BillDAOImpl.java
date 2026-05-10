@@ -189,4 +189,27 @@ public class BillDAOImpl implements IBillDAO {
             } catch (SQLException e) { con.rollback(); return false; }
         } catch (SQLException e) { return false; }
     }
+
+    public boolean removeProductFromBill(int billId, Product product) {
+        String sqlDelete = "DELETE FROM bill_items WHERE bill_id = ? AND product_name = ? AND status = 'PENDING' LIMIT 1";
+        String sqlUpdateTotal = "UPDATE bills SET total = total - ? WHERE id = ?";
+        try (Connection con = ConexionDB.obtenerConexion()) {
+            con.setAutoCommit(false);
+            try (PreparedStatement psD = con.prepareStatement(sqlDelete);
+                 PreparedStatement psU = con.prepareStatement(sqlUpdateTotal)) {
+                psD.setInt(1, billId);
+                psD.setString(2, product.getName());
+                int affected = psD.executeUpdate();
+                if (affected > 0) {
+                    psU.setDouble(1, product.getPrice());
+                    psU.setInt(2, billId);
+                    psU.executeUpdate();
+                    con.commit();
+                    return true;
+                }
+                con.rollback();
+                return false;
+            } catch (SQLException e) { con.rollback(); return false; }
+        } catch (SQLException e) { return false; }
+    }
 }

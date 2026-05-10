@@ -6,19 +6,15 @@ import com.equipok.model.Bill;
 import com.equipok.model.Product;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class PaymentController {
 
@@ -61,9 +57,6 @@ public class PaymentController {
     @FXML 
     private TableColumn<Product, Double> colProductPrice;
 
-    @FXML
-    private Pane barraSuperior;
-
     private double xOffset = 0;
     private double yOffset = 0;
     private boolean paymentConfirmed = false;
@@ -79,17 +72,6 @@ public class PaymentController {
             productsTable.getSelectionModel().getSelectedItems().addListener((ListChangeListener.Change<? extends Product> c) -> {
                 calculateChange(txtReceived.getText());
             });
-            if (barraSuperior != null) {
-                barraSuperior.setOnMousePressed(event -> {
-                    xOffset = event.getSceneX();
-                    yOffset = event.getSceneY();
-                });
-                barraSuperior.setOnMouseDragged(event -> {
-                    Stage stage = (Stage) barraSuperior.getScene().getWindow();
-                    stage.setX(event.getScreenX() - xOffset);
-                    stage.setY(event.getScreenY() - yOffset);
-                });
-            }
         }
         txtTip.disableProperty().bind(chkAddTip.selectedProperty().not());
         if (txtDiscount != null && chkAddDiscount != null) {
@@ -256,18 +238,5 @@ public class PaymentController {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    @FXML
-    private void barraSuperiorPresionada(MouseEvent event) {
-        xOffset = event.getSceneX();
-        yOffset = event.getSceneY();
-    }
-
-    @FXML
-    private void barraSuperiorArrastrada(MouseEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setX(event.getScreenX() - xOffset);
-        stage.setY(event.getScreenY() - yOffset);
     }
 }

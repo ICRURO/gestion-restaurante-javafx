@@ -30,6 +30,10 @@ public class PayBillController {
     @FXML
     private Button btnPay;
 
+    @FXML
+    private Button btnEdit;
+
+
     private IBillDAO billDAO = new BillDAOImpl();
     private ObservableList<Bill> billsList = FXCollections.observableArrayList();
 
@@ -40,6 +44,9 @@ public class PayBillController {
         colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
         loadPendingBills();
         btnPay.disableProperty().bind(
+            billsTable.getSelectionModel().selectedItemProperty().isNull()
+        );
+        btnEdit.disableProperty().bind(
             billsTable.getSelectionModel().selectedItemProperty().isNull()
         );
     } 
@@ -59,6 +66,29 @@ public class PayBillController {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("payment.fxml"));
             Parent root = loader.load();
             PaymentController dialogController = loader.getController();
+            dialogController.setBill(selectedBill);
+            StackPane mainPane = (StackPane) btnPay.getScene().lookup("#mainPane");
+            if (mainPane != null) {
+                mainPane.getChildren().clear();
+                mainPane.getChildren().add(root);
+            } else {
+                App.setRoot(root); 
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleEditBill() {
+        Bill selectedBill = billsTable.getSelectionModel().getSelectedItem();
+        if (selectedBill == null) return;
+        // Implement bill editing logic here
+        try {
+
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("EditBill.fxml"));
+            Parent root = loader.load();
+            EditBillController dialogController = loader.getController();
             dialogController.setBill(selectedBill);
             StackPane mainPane = (StackPane) btnPay.getScene().lookup("#mainPane");
             if (mainPane != null) {

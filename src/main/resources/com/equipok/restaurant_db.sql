@@ -52,3 +52,11 @@ CREATE TABLE products (
     name VARCHAR(100) NOT NULL,
     price DOUBLE NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS empleados (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    puesto VARCHAR(50) NOT NULL,
+    telefono VARCHAR(15),
+    turno VARCHAR(20)
+);
