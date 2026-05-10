@@ -18,6 +18,7 @@ CREATE TABLE sales (
 CREATE TABLE tables (
     table_id INT PRIMARY KEY,
     status_table VARCHAR(20) DEFAULT 'AVAILABLE'
+    capacity INT DEFAULT 4 /ñ
 );
 
 CREATE TABLE bills (
