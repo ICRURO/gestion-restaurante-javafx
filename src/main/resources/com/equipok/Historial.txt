@@ -39,3 +39,7 @@
 
     Se implementó el caso de uso Modificar pedido y generar reporte diario, semanal y mensual.
     Se optimizó el código de login y del menú principal
+
+-- Antonio 10/may/2026
+
+    Se implementael caso de uso de Gestion de empleados con sus respectivos DAO, Controller y su fxml

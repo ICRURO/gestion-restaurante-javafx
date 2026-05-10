@@ -84,4 +84,8 @@ public class PrimaryController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    @FXML
+    private void switchToPersonal() throws IOException {
+        App.setRoot("personal");
+    }
 }
