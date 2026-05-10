@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.TableManagementController">
+   <children>
+      <VBox spacing="10.0" layoutX="20.0" layoutY="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Label text="Gestión de mesas" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+            <HBox spacing="15.0">
+               <children>
+                  <TextField fx:id="txtTableId" promptText="Número de mesa" />
+                  <TextField fx:id="txtCapacity" promptText="Capacidad" />
+                  <Button onAction="#onSave" text="Guardar" style="-fx-background-color: green; -fx-text-fill: white;" />
+                  <Button onAction="#onDelete" text="Borrar" style="-fx-background-color: red; -fx-text-fill: white;" />
+                  <Button onAction="#regresarAlMenu" text="Volver" />
+               </children>
+            </HBox>
+            <TableView fx:id="tblTables" prefHeight="300.0">
+              <columns>
+                <TableColumn fx:id="colId" text="Table #" prefWidth="100.0" />
+                <TableColumn fx:id="colCapacity" text="Capacity" prefWidth="150.0" />
+                <TableColumn fx:id="colStatus" text="Status" prefWidth="150.0" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

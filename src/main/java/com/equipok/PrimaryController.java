@@ -55,6 +55,12 @@ public class PrimaryController {
     private void switchToSalesReport() throws IOException {
         cargarPantalla("salesReport");
     }
+
+    @FXML
+    private void switchToTableManagement() throws IOException {
+    cargarPantalla("TableManagement"); 
+}
+
     @FXML
     private void abrirProductos() throws java.io.IOException {
         cargarPantalla("productos"); 

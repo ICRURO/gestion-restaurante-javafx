@@ -42,6 +42,7 @@
                   <Button fx:id="btnPagarCuenta" layoutX="58.0" layoutY="126.0" mnemonicParsing="false" onAction="#switchToPayBill" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Pagar cuenta" />
                   <Button fx:id="btnReporteVentas" layoutX="503.0" layoutY="330.0" mnemonicParsing="false" onAction="#switchToSalesReport" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Reporte de Ventas" />
                   <Button fx:id="btnReservar" layoutX="355.0" layoutY="126.0" mnemonicParsing="false" onAction="#abrirReservas" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Reservar Mesa" />
+                  <Button fx:id="btnGestionMesas" layoutX="58.0" layoutY="500.0" mnemonicParsing="false" onAction="#switchToTableManagement" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Gestón de Mesas" />
                </children>
             </Pane>
          </children>

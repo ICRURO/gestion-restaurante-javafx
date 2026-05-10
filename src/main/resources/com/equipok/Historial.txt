@@ -30,3 +30,7 @@
 -- Ian 26/abr/2026
 
     Arreglo de intefaces con el uso de SCC
+
+-- Fernando 09/05/2026
+
+    Se implemento el caso de uso 8 que es la gestion de mesas
