@@ -40,18 +40,20 @@ public class LoginController {
     private void handleLogin() throws IOException {
         String usuario = txtUsuario.getText();
         String contrasenia = txtPassword.getText();
-        String sql = "SELECT * FROM usuarios WHERE usuario = ? AND contrasenia = ?";
+        String sql = "SELECT usuario, contrasenia, rol FROM usuarios WHERE usuario = ? AND contrasenia = ?";
         try (Connection conexion = ConexionDB.obtenerConexion();
             PreparedStatement pstmt = conexion.prepareStatement(sql)){
                 pstmt.setString(1, usuario);
                 pstmt.setString(2, contrasenia);
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
+                    String rolObtenido = rs.getString("rol");
+                    App.setUserRole(rolObtenido);
                     App.setRoot("primary");
                 } else {
                     mostrarAlerta("Error", "Usuario o contraseña incorrectos");
                 }
-            }catch (SQLException e){
+            } catch (SQLException e){
                 e.printStackTrace();
                 mostrarAlerta("Error", "Error al conectar a la base de datos");
         }

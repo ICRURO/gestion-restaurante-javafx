@@ -3,6 +3,8 @@ package com.equipok;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,12 +18,35 @@ public class PrimaryController {
 
     @FXML 
     private Pane buttonPane;
+
+    @FXML 
+    private Button btnPedirOrden; 
+
+    @FXML 
+    private Button btnAgregarProducto;
+
+    @FXML 
+    private Button btnPagarCuenta;   
+
+    @FXML 
+    private Button btnReporteVentas; 
+
+    @FXML 
+    private Button btnReservar;       
+
+    @FXML 
+    private Button btnGestionMesas;   
+
+    @FXML 
+    private Button btnGestionPersonal; 
     
     private Node homeMenu;
 
     @FXML
     public void initialize() {
         homeMenu = buttonPane;
+
+        configurarPermisosPorRol();
     }
     
     @FXML
@@ -87,5 +112,36 @@ public class PrimaryController {
     @FXML
     private void switchToPersonal() throws IOException {
         App.setRoot("personal");
+    }
+
+    private void configurarPermisosPorRol() {
+        String rol = App.getUserRole();
+        if (rol == null) return;
+        switch (rol) {
+            case "GERENTE":
+                break;
+            case "MESERO_CAJERO":
+                ocultarNodo(btnAgregarProducto);
+                ocultarNodo(btnReporteVentas);
+                ocultarNodo(btnGestionMesas);
+                ocultarNodo(btnGestionPersonal);
+                break;
+            case "CHEF": //Aun falta implementar las funcionalidades para el rol de chef
+                ocultarNodo(btnAgregarProducto);
+                ocultarNodo(btnPagarCuenta);
+                ocultarNodo(btnReporteVentas);
+                ocultarNodo(btnReservar);
+                ocultarNodo(btnGestionMesas);
+                ocultarNodo(btnGestionPersonal);
+                ocultarNodo(btnPedirOrden);
+                break;
+        }
+    }
+
+    private void ocultarNodo(Node nodo) {
+        if (nodo != null) {
+            nodo.setVisible(false);
+            nodo.setManaged(false);
+        }
     }
 }

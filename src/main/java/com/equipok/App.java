@@ -16,6 +16,8 @@ public class App extends Application {
     private static Scene scene;
     private static Stage stage;
 
+    private static String userRole;
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
@@ -48,6 +50,14 @@ public class App extends Application {
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
+    }
+
+    public static String getUserRole() {
+        return userRole;
+    }
+
+    public static void setUserRole(String role) {
+        userRole = role;
     }
 
     public static void main(String[] args) {
