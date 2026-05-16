@@ -53,6 +53,15 @@ CREATE TABLE products (
     price DOUBLE NOT NULL
 );
 
+CREATE TABLE wastes (
+    waste_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    reason VARCHAR(255) NOT NULL,
+    waste_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS empleados (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,

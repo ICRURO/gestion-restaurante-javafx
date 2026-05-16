@@ -43,3 +43,7 @@
 -- Antonio 10/may/2026
 
     Se implementael caso de uso de Gestion de empleados con sus respectivos DAO, Controller y su fxml
+
+-- Fernando 16/05/2025
+
+    Se implemento el caso de uso de Gestion de mermas

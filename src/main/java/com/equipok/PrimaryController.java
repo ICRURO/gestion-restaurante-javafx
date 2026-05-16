@@ -84,6 +84,11 @@ public class PrimaryController {
         App.setRoot("login"); 
     }
 
+    @FXML
+    private void switchToWaste() throws IOException {
+        cargarPantalla("waste");
+    }
+
     private void cargarPantalla(String Fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(Fxml + ".fxml"));
