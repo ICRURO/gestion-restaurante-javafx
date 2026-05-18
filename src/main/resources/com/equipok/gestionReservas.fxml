@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="956.0" styleClass="sub-pane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.GestionReservasController">
+   <children>
+      <Pane layoutX="40.0" layoutY="94.0" prefHeight="450.0" prefWidth="416.0" styleClass="card-panel">
+         <children>
+            <TextField fx:id="txtFecha" layoutX="130.0" layoutY="35.0" prefHeight="42.0" prefWidth="255.0" styleClass="modern-text-field" />
+            <Label layoutX="50.0" layoutY="40.0" styleClass="label-main" text="Fecha" />
+
+            <TextField fx:id="txtHora" layoutX="130.0" layoutY="105.0" prefHeight="42.0" prefWidth="255.0" styleClass="modern-text-field" />
+            <Label layoutX="55.0" layoutY="110.0" styleClass="label-main" text="Hora" />
+
+            <TextField fx:id="txtPersonas" layoutX="130.0" layoutY="175.0" prefHeight="42.0" prefWidth="255.0" styleClass="modern-text-field" />
+            <Label layoutX="30.0" layoutY="180.0" styleClass="label-main" text="Invitados" />
+
+            <TextField fx:id="txtNombre" layoutX="130.0" layoutY="245.0" prefHeight="42.0" prefWidth="255.0" styleClass="modern-text-field" />
+            <Label layoutX="40.0" layoutY="250.0" styleClass="label-main" text="Nombre" />
+
+            <TextField fx:id="txtTelefono" layoutX="130.0" layoutY="315.0" prefHeight="42.0" prefWidth="255.0" styleClass="modern-text-field" />
+            <Label layoutX="40.0" layoutY="320.0" styleClass="label-main" text="Teléfono" />
+
+            <ComboBox fx:id="cbMesas" layoutX="130.0" layoutY="385.0" prefHeight="38.0" prefWidth="255.0" />
+            <Label layoutX="55.0" layoutY="390.0" styleClass="label-main" text="Mesa" />
+         </children>
+      </Pane>
+
+      <Pane layoutX="472.0" layoutY="94.0" prefHeight="450.0" prefWidth="458.0" styleClass="card-panel">
+         <children>
+            <TableView fx:id="tablaReservas" layoutX="15.0" layoutY="15.0" prefHeight="420.0" prefWidth="425.0">
+              <columns>
+                <TableColumn fx:id="colFecha" prefWidth="90.0" text="Fecha" />
+                <TableColumn fx:id="colHora" prefWidth="75.0" text="Hora" />
+                <TableColumn fx:id="colPersonas" prefWidth="65.0" text="Gente" />
+                <TableColumn fx:id="colNombre" prefWidth="140.0" text="Cliente" />
+                <TableColumn fx:id="colTelefono" prefWidth="120.0" text="Teléfono" />
+                <TableColumn fx:id="colMesa" prefWidth="65.0" text="Mesa" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
+
+      <Pane layoutX="40.0" layoutY="570.0" prefHeight="80.0" prefWidth="887.0" styleClass="card-horizontal-pane">
+         <children>
+            <Button fx:id="btnRegresar" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#regresarAlFormulario" styleClass="btn-secondary" text="Atrás">
+               <font><Font name="Arial Black" size="14.0" /></font>
+            </Button>
+            
+            <Button fx:id="btnModificar" layoutX="489.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleModificarReserva" styleClass="btn-primary" text="Guardar Cambios">
+               <font><Font name="Arial Black" size="14.0" /></font>
+            </Button>
+
+            <Button fx:id="btnCancelar" layoutX="711.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleCancelarReserva" styleClass="btn-secondary" text="Cancelar Reserva" textFill="#ff5f6d">
+               <font><Font name="Arial Black" size="14.0" /></font>
+            </Button>
+         </children>
+      </Pane>
+
+      <Label layoutX="40.0" layoutY="35.0" styleClass="header-title" text="Administración de Reservas">
+         <font><Font name="Arial Black" size="28.0" /></font>
+      </Label>
+   </children>
+</AnchorPane>

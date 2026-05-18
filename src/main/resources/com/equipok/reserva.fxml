@@ -10,99 +10,61 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="600.0" styleClass="sub-pane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.ReservaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" styleClass="sub-pane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.ReservaController">
    <children>
-      <Pane layoutX="40.0" layoutY="94.0" prefHeight="450.0" prefWidth="607.0" styleClass="card-panel">
+      <Pane layoutX="40.0" layoutY="94.0" prefHeight="450.0" prefWidth="540.0" styleClass="card-panel">
          <children>
-            <ComboBox fx:id="cbMesas" layoutX="158.0" layoutY="383.0" prefHeight="26.0" prefWidth="394.0" />
-            <Label layoutX="107.0" layoutY="392.0" styleClass="label-main" text="Mesa">
-               <font>
-                  <Font name="Arial" size="17.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtTelefono" layoutX="158.0" layoutY="310.0" prefHeight="26.0" prefWidth="394.0" styleClass="modern-text-field">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </TextField>
-            <Label layoutX="84.0" layoutY="320.0" styleClass="label-main" text="Telefono">
-               <font>
-                  <Font name="Arial" size="17.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtNombre" layoutX="158.0" layoutY="236.0" prefHeight="26.0" prefWidth="394.0" styleClass="modern-text-field">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtPersonas" layoutX="158.0" layoutY="164.0" prefHeight="26.0" prefWidth="394.0" styleClass="modern-text-field">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtHora" layoutX="158.0" layoutY="96.0" prefHeight="26.0" prefWidth="394.0" styleClass="modern-text-field">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtFecha" layoutX="158.0" layoutY="31.0" prefHeight="26.0" prefWidth="394.0" styleClass="modern-text-field">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </TextField>
-            <Label layoutX="86.0" layoutY="246.0" styleClass="label-main" text="Nombre">
-               <font>
-                  <Font name="Arial" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="23.0" layoutY="174.0" styleClass="label-main" text="Num. de Invitados">
-               <font>
-                  <Font name="Arial" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="108.0" layoutY="106.0" styleClass="label-main" text="Hora">
-               <font>
-                  <Font name="Arial" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="106.0" layoutY="41.0" styleClass="label-main" text="Fecha">
-               <font>
-                  <Font name="Arial" size="17.0" />
-               </font>
-            </Label>
+            <ComboBox fx:id="cbMesas" layoutX="158.0" layoutY="383.0" prefHeight="30.0" prefWidth="350.0" />
+            <Label layoutX="107.0" layoutY="388.0" styleClass="label-main" text="Mesa"><font><Font name="Arial" size="17.0" /></font></Label>
+            
+            <TextField fx:id="txtTelefono" layoutX="158.0" layoutY="310.0" prefHeight="30.0" prefWidth="350.0" styleClass="modern-text-field"><font><Font name="Arial" size="14.0" /></font></TextField>
+            <Label layoutX="84.0" layoutY="315.0" styleClass="label-main" text="Teléfono"><font><Font name="Arial" size="17.0" /></font></Label>
+            
+            <TextField fx:id="txtNombre" layoutX="158.0" layoutY="236.0" prefHeight="30.0" prefWidth="350.0" styleClass="modern-text-field"><font><Font name="Arial" size="14.0" /></font></TextField>
+            <Label layoutX="86.0" layoutY="241.0" styleClass="label-main" text="Nombre"><font><Font name="Arial" size="17.0" /></font></Label>
+            
+            <TextField fx:id="txtPersonas" layoutX="158.0" layoutY="164.0" prefHeight="30.0" prefWidth="350.0" styleClass="modern-text-field"><font><Font name="Arial" size="14.0" /></font></TextField>
+            <Label layoutX="23.0" layoutY="169.0" styleClass="label-main" text="Num. de Invitados"><font><Font name="Arial" size="17.0" /></font></Label>
+            
+            <TextField fx:id="txtHora" layoutX="158.0" layoutY="96.0" prefHeight="30.0" prefWidth="350.0" styleClass="modern-text-field"><font><Font name="Arial" size="14.0" /></font></TextField>
+            <Label layoutX="108.0" layoutY="101.0" styleClass="label-main" text="Hora"><font><Font name="Arial" size="17.0" /></font></Label>
+            
+            <TextField fx:id="txtFecha" layoutX="158.0" layoutY="31.0" prefHeight="30.0" prefWidth="350.0" styleClass="modern-text-field"><font><Font name="Arial" size="14.0" /></font></TextField>
+            <Label layoutX="106.0" layoutY="36.0" styleClass="label-main" text="Fecha"><font><Font name="Arial" size="17.0" /></font></Label>
          </children>
       </Pane>
-      <Pane layoutX="40.0" layoutY="592.0" prefHeight="75.0" prefWidth="200.0" styleClass="card-horizontal-pane">
+
+      <Pane layoutX="609.0" layoutY="164.0" prefHeight="220.0" prefWidth="250.0" styleClass="card-panel">
          <children>
-            <Button fx:id="btnRegresar" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#regresarAlMenu" styleClass="btn-secondary" stylesheets="@styles.css" text="Regresar">
-               <font>
-                  <Font name="Arial Black" size="14.0" />
-               </font>
-            </Button>
-         </children>
-      </Pane>
-      <Label layoutX="40.0" layoutY="42.0" styleClass="header-title" text="Nueva Reservas">
-         <font>
-            <Font name="Arial Black" size="28.0" />
-         </font>
-      </Label>
-      <Pane layoutX="700.0" layoutY="94.0" prefHeight="295.0" prefWidth="240.0" styleClass="card-panel">
-         <children>
-            <ImageView fitHeight="168.0" fitWidth="150.0" layoutX="45.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="50.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@time-and-calendar.png" />
                </image>
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="700.0" layoutY="436.0" prefHeight="108.0" prefWidth="240.0" styleClass="card-panel">
+
+      <Pane layoutX="610.0" layoutY="470.0" prefHeight="75.0" prefWidth="250.0" styleClass="card-panel">
          <children>
-            <Button fx:id="btnConfirmar" layoutX="62.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleConfirmarReserva" styleClass="btn-primary" stylesheets="@styles.css" text="Confirmar">
-               <font>
-                  <Font name="Arial Black" size="14.0" />
-               </font>
+            <Button fx:id="btnConfirmar" layoutX="39.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleConfirmarReserva" styleClass="btn-primary" text="Confirmar Reserva">
+               <font><Font name="Arial Black" size="14.0" /></font>
             </Button>
          </children>
       </Pane>
+
+      <Pane layoutX="40.0" layoutY="560.0" prefHeight="65.0" prefWidth="820.0" styleClass="card-horizontal-pane">
+         <children>
+            <Button fx:id="btnRegresar" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#regresarAlMenu" styleClass="btn-secondary" text="Regresar">
+               <font><Font name="Arial Black" size="14.0" /></font>
+            </Button>
+            <Button fx:id="btnVerGestion" layoutX="590.0" layoutY="12.0" mnemonicParsing="false" onAction="#abrirPanelGestion" styleClass="btn-primary" text="Ver / Editar Reservas">
+               <font><Font name="Arial Black" size="14.0" /></font>
+            </Button>
+         </children>
+      </Pane>
+
+      <Label layoutX="40.0" layoutY="35.0" styleClass="header-title" text="Nueva Reserva">
+         <font><Font name="Arial Black" size="28.0" /></font>
+      </Label>
    </children>
 </AnchorPane>

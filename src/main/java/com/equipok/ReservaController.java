@@ -21,9 +21,8 @@ public class ReservaController {
 
     @FXML
     public void handleConfirmarReserva() {
-        // Validar que no haya campos vacíos
         if(txtNombre.getText().isEmpty() || txtTelefono.getText().isEmpty() || cbMesas.getValue() == null) {
-            mostrarAlerta("Error", "Debes llenar todos los campos y seleccionar una mesa.");
+            mostrarAlerta("Error", "Debes llenar todos los campos y seleccionar una mesa.", Alert.AlertType.ERROR);
             return;
         }
 
@@ -36,15 +35,19 @@ public class ReservaController {
             );
 
             if(reservaDAO.guardarReserva(nueva)) {
-                mostrarAlerta("Éxito", "Reserva guardada correctamente. La mesa ahora está RESERVED.");
-                cbMesas.getItems().clear();
-                cbMesas.getItems().addAll(reservaDAO.obtenerMesasDisponibles());
+                mostrarAlerta("Éxito", "Reserva guardada correctamente.", Alert.AlertType.INFORMATION);
+                limpiarFormulario();
             } else {
-                mostrarAlerta("Error", "No se pudo guardar la reserva en la base de datos.");
+                mostrarAlerta("Error", "No se pudo guardar la reserva.", Alert.AlertType.ERROR);
             }
         } catch (NumberFormatException e) {
-            mostrarAlerta("Error de formato", "El número de personas debe ser un valor numérico.");
+            mostrarAlerta("Error de formato", "El número de personas debe ser numérico.", Alert.AlertType.ERROR);
         }
+    }
+
+    @FXML
+    private void abrirPanelGestion() throws IOException {
+        App.setRoot("gestionReservas");
     }
 
     @FXML
@@ -52,8 +55,18 @@ public class ReservaController {
         App.setRoot("primary");
     }
 
-    private void mostrarAlerta(String titulo, String msg) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    private void limpiarFormulario() {
+        txtFecha.clear();
+        txtHora.clear();
+        txtPersonas.clear();
+        txtNombre.clear();
+        txtTelefono.clear();
+        cbMesas.getItems().clear();
+        cbMesas.getItems().addAll(reservaDAO.obtenerMesasDisponibles());
+    }
+
+    private void mostrarAlerta(String titulo, String msg, Alert.AlertType tipo) {
+        Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(msg);

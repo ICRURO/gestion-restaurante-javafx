@@ -69,3 +69,16 @@ CREATE TABLE IF NOT EXISTS empleados (
     telefono VARCHAR(15),
     turno VARCHAR(20)
 );
+
+ALTER TABLE usuarios ADD COLUMN rol ENUM('GERENTE', 'MESERO_CAJERO', 'CHEF') NOT NULL DEFAULT 'GERENTE';
+
+INSERT INTO usuarios (usuario, contrasenia, rol) VALUES ('mesero', '1234', 'MESERO_CAJERO'), ('chef', '1234', 'CHEF');
+
+CREATE TABLE wastes (
+    waste_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    reason VARCHAR(255) NOT NULL,
+    waste_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
+);

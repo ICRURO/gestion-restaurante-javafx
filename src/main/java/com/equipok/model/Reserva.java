@@ -17,7 +17,16 @@ public class Reserva {
         this.telefonoCliente = telefonoCliente;
         this.tableId = tableId;
     }
-
+    public Reserva(int idReserva, String fecha, String hora, int personas, String nombreCliente, String telefonoCliente, int tableId) {
+        this.idReserva = idReserva;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.personas = personas;
+        this.nombreCliente = nombreCliente;
+        this.telefonoCliente = telefonoCliente;
+        this.tableId = tableId;
+    }
+    public int getIdReserva() { return idReserva; }
     public String getFecha() { return fecha; }
     public String getHora() { return hora; }
     public int getPersonas() { return personas; }
