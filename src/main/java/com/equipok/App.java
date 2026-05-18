@@ -38,6 +38,8 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
         stage.sizeToScene();
         stage.centerOnScreen();
+        scene.getWindow().centerOnScreen();
+        scene.getWindow().sizeToScene();
     }
 
     public static void setRoot(Parent root) {
