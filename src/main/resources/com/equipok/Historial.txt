@@ -47,3 +47,6 @@
 -- Fernando 16/05/2025
 
     Se implemento el caso de uso de Gestion de mermas
+
+-- Antonio 22/05/2026
+    Me la pelaron, digo ya implemente los proveedores

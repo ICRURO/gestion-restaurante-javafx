@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.ProveedorController">
+   <children>
+      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <!-- Panel Izquierdo: Formulario (Sin campo de ID porque es automático) -->
+            <VBox prefWidth="300.0" spacing="15.0" style="-fx-background-color: #f4f4f4; -fx-border-color: #dcdcdc; -fx-border-width: 0 1 0 0;">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <Label text="Datos del Proveedor" textFill="#2c3e50">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Nombre de Contacto:" />
+                        <TextField fx:id="txtNombre" promptText="Ej. Juan Pérez" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Empresa:" />
+                        <TextField fx:id="txtEmpresa" promptText="Ej. Distribuidora S.A." />
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Teléfono:" />
+                        <TextField fx:id="txtTelefono" promptText="Ej. 2281234567" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Correo Electrónico:" />
+                        <TextField fx:id="txtCorreo" promptText="Ej. ventas@empresa.com" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Categoría de insumos:" />
+                        <ComboBox fx:id="cbCategoria" prefWidth="260.0" promptText="Seleccione una categoría" />
+                     </children>
+                  </VBox>
+                  
+                  <!-- BOTONES: Solo usan onAction, no tienen fx:id -->
+                  <HBox spacing="10.0" style="-fx-padding: 20 0 0 0;">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleGuardar" prefWidth="120.0" styleClass="action-button" text="Guardar" textFill="WHITE" style="-fx-background-color: #27ae60; -fx-font-weight: bold;"/>
+                        <Button mnemonicParsing="false" onAction="#handleLimpiar" prefWidth="120.0" text="Limpiar Formulario" />
+                     </children>
+                  </HBox>
+                  <Button mnemonicParsing="false" onAction="#handleRegresar" prefWidth="250.0" text="Regresar al Menú">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            
+            <!-- Panel Derecho: Tabla de Registros -->
+            <VBox HBox.hgrow="ALWAYS" spacing="10.0" style="-fx-background-color: white;">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <Label text="Directorio de Proveedores" textFill="#2c3e50">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <!-- TABLA: Esta sí tiene fx:id para llenarla desde Java -->
+                  <TableView fx:id="tablaProveedores" prefHeight="450.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="colId" prefWidth="40.0" text="ID" />
+                      <TableColumn fx:id="colEmpresa" prefWidth="130.0" text="Empresa" />
+                      <TableColumn fx:id="colNombre" prefWidth="120.0" text="Contacto" />
+                      <TableColumn fx:id="colTelefono" prefWidth="100.0" text="Teléfono" />
+                      <TableColumn fx:id="colCorreo" prefWidth="120.0" text="Correo" />
+                      <TableColumn fx:id="colCategoria" prefWidth="90.0" text="Categoría" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <!-- BOTÓN ELIMINAR: Tampoco lleva fx:id -->
+                        <Button mnemonicParsing="false" onAction="#handleEliminar" style="-fx-background-color: #e74c3c; -fx-font-weight: bold;" text="Eliminar Seleccionado" textFill="WHITE" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

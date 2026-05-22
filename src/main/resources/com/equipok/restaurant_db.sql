@@ -82,3 +82,17 @@ CREATE TABLE wastes (
     waste_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS proveedores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    empresa VARCHAR(150) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    correo VARCHAR(100),
+    categoria VARCHAR(50)
+);
+
+-- Datos de prueba iniciales (opcional)
+INSERT INTO proveedores (nombre, empresa, telefono, correo, categoria) VALUES
+('Carlos Ramos', 'Carnes del Puerto S.A.', '2299112233', 'ventas@carnesdelpuerto.com', 'Alimentos'),
+('Maria Fernández', 'Bebidas de Veracruz', '2288445566', 'contacto@bebidasver.com.mx', 'Bebidas');

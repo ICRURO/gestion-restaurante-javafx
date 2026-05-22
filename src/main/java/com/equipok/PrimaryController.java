@@ -89,6 +89,11 @@ public class PrimaryController {
         cargarPantalla("waste");
     }
 
+    @FXML
+    private void openProveedores() throws IOException {
+        App.setRoot("proveedor");
+    }
+
     private void cargarPantalla(String Fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(Fxml + ".fxml"));
