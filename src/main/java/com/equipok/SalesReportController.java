@@ -17,14 +17,20 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class SalesReportController {
 
-    @FXML private TableView<Sales> salesTable;
-    @FXML private TableColumn<Sales, Integer> colId;
-    @FXML private TableColumn<Sales, Double> colTotal;
-    @FXML private TableColumn<Sales, String> colMethod;
-    @FXML private TableColumn<Sales, LocalDateTime> colDate; 
-    @FXML private TableColumn<Sales, String> colItems;
-
-    @FXML private ComboBox<String> cbFilter;
+    @FXML 
+    private TableView<Sales> salesTable;
+    @FXML 
+    private TableColumn<Sales, Integer> colId;
+    @FXML 
+    private TableColumn<Sales, Double> colTotal;
+    @FXML 
+    private TableColumn<Sales, String> colMethod;
+    @FXML 
+    private TableColumn<Sales, LocalDateTime> colDate; 
+    @FXML 
+    private TableColumn<Sales, String> colItems;
+    @FXML 
+    private ComboBox<String> cbFilter;
 
     private ISalesDAO salesDAO = new SalesDAOImpl();
     private ObservableList<Sales> allSales = FXCollections.observableArrayList();
@@ -36,15 +42,12 @@ public class SalesReportController {
         colMethod.setCellValueFactory(new PropertyValueFactory<>("paymentMethod"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("saleDate"));
         colItems.setCellValueFactory(new PropertyValueFactory<>("items"));
-
         allSales.addAll(salesDAO.getAllSales());
-
         if (cbFilter != null) {
             cbFilter.getItems().addAll("Todos", "Diario", "Semanal", "Mensual");
             cbFilter.setValue("Todos");
             cbFilter.valueProperty().addListener((obs, old, val) -> applyFilter(val));
         }
-
         applyFilter("Todos");
     }
 
@@ -66,7 +69,8 @@ public class SalesReportController {
     @FXML
     private void generatePDF() {
         String filterName = cbFilter != null ? cbFilter.getValue().toUpperCase() : "GENERAL";
-        SalesReport.print(filterName, salesTable.getItems());
+        SalesReport.print(filterName, salesTable.getItems()); //Comentar solo si se quiere imprimir en terminal
+        SalesReport.debugToConsole(filterName, salesTable.getItems());
     }
 
     @FXML

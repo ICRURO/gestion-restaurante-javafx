@@ -95,4 +95,16 @@ public class Sales {
     public void setItems(String items) {
         this.items = items;
     }
+
+    public int getSaleHour() {
+        return this.saleDate != null ? this.saleDate.getHour() : 0;
+    }
+
+    public int getSaleMonthValue() {
+        return this.saleDate != null ? this.saleDate.getMonthValue() : 0;
+    }
+
+    public int getSaleYear() {
+        return this.saleDate != null ? this.saleDate.getYear() : 0;
+    }
 }
