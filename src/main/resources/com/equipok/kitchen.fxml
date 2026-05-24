@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.KitchenController" stylesheets="@styles.css">
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: #2c3e50; -fx-padding: 15;">
+            <children>
+                <Label text="🍳 MONITOR PRINCIPAL DE COCINA" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="🔄 Actualizar Monitor" onAction="#handleRefrescar" styleClass="button-primary"/>
+            </children>
+        </HBox>
+
+        <TableView fx:id="tablePedidos" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colMesa" text="N° Mesa" prefWidth="90.0" />
+                <TableColumn fx:id="colPlatillo" text="Platillo / Producto" prefWidth="250.0" />
+                <TableColumn fx:id="colNotas" text="Especificaciones (Notas Especiales)" prefWidth="300.0" />
+                <TableColumn fx:id="colEstado" text="Estado" prefWidth="140.0" />
+            </columns>
+        </TableView>
+
+        <HBox spacing="15.0" alignment="CENTER_RIGHT">
+            <children>
+                <Button text="Empezar Preparación" onAction="#handleEnPreparacion" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
+                <Button text="Marcar como Listo" onAction="#handleListoServir" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
+                <Button text="Reportar Platillo Agotado" onAction="#handleMarcarAgotado" style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 15;"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="Volver al Panel" onAction="#handleRegresarMenu" style="-fx-padding: 10 15;"/>
+            </children>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+    </padding>
+</VBox>

@@ -96,3 +96,10 @@ CREATE TABLE IF NOT EXISTS proveedores (
 INSERT INTO proveedores (nombre, empresa, telefono, correo, categoria) VALUES
 ('Carlos Ramos', 'Carnes del Puerto S.A.', '2299112233', 'ventas@carnesdelpuerto.com', 'Alimentos'),
 ('Maria Fernández', 'Bebidas de Veracruz', '2288445566', 'contacto@bebidasver.com.mx', 'Bebidas');
+
+ALTER TABLE bill_items 
+MODIFY COLUMN status ENUM('PENDING', 'IN_PREPARATION', 'READY', 'PAID') DEFAULT 'PENDING';
+ALTER TABLE bill_items 
+ADD COLUMN special_note VARCHAR(255) DEFAULT '';
+ALTER TABLE products 
+ADD COLUMN stock INT DEFAULT 50;

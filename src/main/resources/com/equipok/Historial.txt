@@ -44,9 +44,12 @@
 
     Se implementael caso de uso de Gestion de empleados con sus respectivos DAO, Controller y su fxml
 
--- Fernando 16/05/2025
+-- Fernando 16/05/2026
 
     Se implemento el caso de uso de Gestion de mermas
 
 -- Antonio 22/05/2026
     Me la pelaron, digo ya implemente los proveedores
+
+-- Fernando 23/05/2026
+    Se implemento el caso de uso de Gestion de comida

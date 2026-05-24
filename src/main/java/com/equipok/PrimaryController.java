@@ -40,6 +40,9 @@ public class PrimaryController {
     @FXML 
     private Button btnGestionPersonal; 
     
+    @FXML
+    private Button btnCocina;
+
     private Node homeMenu;
 
     @FXML
@@ -94,6 +97,12 @@ public class PrimaryController {
         App.setRoot("proveedor");
     }
 
+    @FXML
+    private void switchToKitchen() throws IOException {
+        App.setRoot("kitchen");
+    }
+
+
     private void cargarPantalla(String Fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(Fxml + ".fxml"));
@@ -129,12 +138,14 @@ public class PrimaryController {
         if (rol == null) return;
         switch (rol) {
             case "GERENTE":
+                ocultarNodo(btnCocina);
                 break;
             case "MESERO_CAJERO":
                 ocultarNodo(btnAgregarProducto);
                 ocultarNodo(btnReporteVentas);
                 ocultarNodo(btnGestionMesas);
                 ocultarNodo(btnGestionPersonal);
+                ocultarNodo(btnCocina);
                 break;
             case "CHEF": //Aun falta implementar las funcionalidades para el rol de chef
                 ocultarNodo(btnAgregarProducto);
