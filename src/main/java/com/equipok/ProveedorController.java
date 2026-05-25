@@ -36,6 +36,13 @@ public class ProveedorController {
         // Inicializar ComboBox
         cbCategoria.setItems(FXCollections.observableArrayList("Alimentos", "Bebidas", "Limpieza", "Insumos Generales", "Otros"));
 
+        // ---> NUEVO: Forzar que txtTelefono solo acepte números <---
+        txtTelefono.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getText().matches("\\d*")) {
+                return change; // Permite el cambio si es un número
+            }
+            return null; // Ignora la tecla si es una letra o símbolo
+        }));
         // Configurar Columnas
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -64,29 +71,41 @@ public class ProveedorController {
         }
     }
 
-    @FXML
+@FXML
     private void handleGuardar(ActionEvent event) {
-        // Excepciones (EX-01) - Validar campos vacíos
+        // 1. Validar campos vacíos
         if (txtNombre.getText().isEmpty() || txtEmpresa.getText().isEmpty() || txtTelefono.getText().isEmpty()) {
             mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos", "Por favor, llene al menos Nombre, Empresa y Teléfono.");
             return;
         }
 
+        // 2. NUEVO: Validar longitud del teléfono (ej. 10 dígitos)
+        String telefono = txtTelefono.getText();
+        if (telefono.length() < 8 || telefono.length() > 15) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Teléfono inválido", "El número de teléfono debe tener entre 8 y 15 dígitos.");
+            return;
+        }
+
+        // 3. NUEVO: Validar formato del correo (solo si el usuario escribió uno)
+        String correo = txtCorreo.getText();
+        if (!correo.isEmpty() && !correo.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Correo inválido", "Por favor, ingrese un correo electrónico válido (ej. correo@empresa.com).");
+            return;
+        }
+
         try {
             if (proveedorSeleccionado == null) {
-                // Nuevo Proveedor
                 Proveedor nuevo = new Proveedor(
-                        txtNombre.getText(), txtEmpresa.getText(), txtTelefono.getText(),
-                        txtCorreo.getText(), cbCategoria.getValue()
+                        txtNombre.getText(), txtEmpresa.getText(), telefono,
+                        correo, cbCategoria.getValue()
                 );
                 proveedorDAO.addProveedor(nuevo);
                 mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Proveedor registrado correctamente.");
             } else {
-                // Actualizar Proveedor (FA-02)
                 proveedorSeleccionado.setNombre(txtNombre.getText());
                 proveedorSeleccionado.setEmpresa(txtEmpresa.getText());
-                proveedorSeleccionado.setTelefono(txtTelefono.getText());
-                proveedorSeleccionado.setCorreo(txtCorreo.getText());
+                proveedorSeleccionado.setTelefono(telefono);
+                proveedorSeleccionado.setCorreo(correo);
                 proveedorSeleccionado.setCategoria(cbCategoria.getValue());
                 
                 proveedorDAO.updateProveedor(proveedorSeleccionado);
@@ -98,7 +117,6 @@ public class ProveedorController {
             mostrarAlerta(Alert.AlertType.ERROR, "Error de base de datos", "Error al guardar: " + e.getMessage());
         }
     }
-
     @FXML
     private void handleEliminar(ActionEvent event) {
         // FA-03 Eliminar proveedor
