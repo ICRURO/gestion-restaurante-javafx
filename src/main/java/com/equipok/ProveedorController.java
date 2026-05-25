@@ -33,17 +33,14 @@ public class ProveedorController {
 
     @FXML
     public void initialize() {
-        // Inicializar ComboBox
         cbCategoria.setItems(FXCollections.observableArrayList("Alimentos", "Bebidas", "Limpieza", "Insumos Generales", "Otros"));
 
-        // ---> NUEVO: Forzar que txtTelefono solo acepte números <---
         txtTelefono.setTextFormatter(new TextFormatter<>(change -> {
             if (change.getText().matches("\\d*")) {
-                return change; // Permite el cambio si es un número
+                return change;
             }
-            return null; // Ignora la tecla si es una letra o símbolo
+            return null;
         }));
-        // Configurar Columnas
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colEmpresa.setCellValueFactory(new PropertyValueFactory<>("empresa"));
@@ -51,7 +48,6 @@ public class ProveedorController {
         colCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
 
-        // Listener para selección de tabla
         tablaProveedores.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 proveedorSeleccionado = newSelection;
@@ -73,20 +69,17 @@ public class ProveedorController {
 
 @FXML
     private void handleGuardar(ActionEvent event) {
-        // 1. Validar campos vacíos
         if (txtNombre.getText().isEmpty() || txtEmpresa.getText().isEmpty() || txtTelefono.getText().isEmpty()) {
             mostrarAlerta(Alert.AlertType.WARNING, "Campos incompletos", "Por favor, llene al menos Nombre, Empresa y Teléfono.");
             return;
         }
 
-        // 2. NUEVO: Validar longitud del teléfono (ej. 10 dígitos)
         String telefono = txtTelefono.getText();
         if (telefono.length() < 8 || telefono.length() > 15) {
             mostrarAlerta(Alert.AlertType.WARNING, "Teléfono inválido", "El número de teléfono debe tener entre 8 y 15 dígitos.");
             return;
         }
 
-        // 3. NUEVO: Validar formato del correo (solo si el usuario escribió uno)
         String correo = txtCorreo.getText();
         if (!correo.isEmpty() && !correo.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
             mostrarAlerta(Alert.AlertType.WARNING, "Correo inválido", "Por favor, ingrese un correo electrónico válido (ej. correo@empresa.com).");
@@ -147,7 +140,6 @@ public class ProveedorController {
 
     @FXML
     private void handleRegresar(ActionEvent event) throws IOException {
-        // Regresar a Menú Principal
         App.setRoot("primary");
     }
 
