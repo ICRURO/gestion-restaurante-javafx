@@ -42,6 +42,9 @@ public class PrimaryController {
     
     @FXML
     private Button btnCocina;
+    
+    @FXML
+    private Button btnIngreso;
 
     private Node homeMenu;
 
@@ -98,6 +101,11 @@ public class PrimaryController {
     }
 
     @FXML
+    private void abrirInsumos() throws IOException {
+        App.setRoot("insumos"); 
+    }
+
+    @FXML
     private void switchToKitchen() throws IOException {
         App.setRoot("kitchen");
     }
@@ -146,6 +154,7 @@ public class PrimaryController {
                 ocultarNodo(btnGestionMesas);
                 ocultarNodo(btnGestionPersonal);
                 ocultarNodo(btnCocina);
+                ocultarNodo(btnIngreso);
                 break;
             case "CHEF": //Aun falta implementar las funcionalidades para el rol de chef
                 ocultarNodo(btnAgregarProducto);
@@ -155,6 +164,7 @@ public class PrimaryController {
                 ocultarNodo(btnGestionMesas);
                 ocultarNodo(btnGestionPersonal);
                 ocultarNodo(btnPedirOrden);
+                ocultarNodo(btnIngreso);
                 break;
         }
     }

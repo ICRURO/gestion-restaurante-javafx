@@ -103,3 +103,11 @@ ALTER TABLE bill_items
 ADD COLUMN special_note VARCHAR(255) DEFAULT '';
 ALTER TABLE products 
 ADD COLUMN stock INT DEFAULT 50;
+
+CREATE TABLE insumos (
+    insumo_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    quantity DOUBLE NOT NULL,
+    unit VARCHAR(20) NOT NULL, -- ej. kg, litros, piezas
+    min_stock DOUBLE NOT NULL  -- Nos servirá para el CU-18
+);

@@ -53,3 +53,7 @@
 
 -- Fernando 23/05/2026
     Se implemento el caso de uso de Gestion de comida
+
+-- Antonio 26/05/2026
+    Se implemento el caso de uso de gestion de insumos
+
