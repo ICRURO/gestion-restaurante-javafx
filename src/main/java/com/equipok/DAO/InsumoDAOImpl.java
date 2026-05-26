@@ -87,4 +87,29 @@ public class InsumoDAOImpl implements IInsumoDAO {
             return false;
         }
     }
+
+    @Override
+    public List<Insumo> obtenerInsumosBajoStock() {
+        List<Insumo> listaInsumos = new ArrayList<>();
+        String sql = "SELECT insumo_id, name, quantity, unit, min_stock FROM insumos WHERE quantity <= min_stock";
+        
+        try (Connection conn = ConexionDB.obtenerConexion();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            
+            while (rs.next()) {
+                Insumo insumo = new Insumo(
+                    rs.getInt("insumo_id"),
+                    rs.getString("name"),
+                    rs.getDouble("quantity"),
+                    rs.getString("unit"),
+                    rs.getDouble("min_stock")
+                );
+                listaInsumos.add(insumo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listaInsumos;
+    }
 }

@@ -8,4 +8,5 @@ public interface IInsumoDAO {
     boolean actualizarInsumo(Insumo insumo);
     List<Insumo> obtenerInsumos();
     boolean eliminarInsumo(int id);
+    List<Insumo> obtenerInsumosBajoStock(); 
 }

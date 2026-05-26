@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+
+
 import java.util.List;
 
 public class InsumoController {
@@ -142,5 +144,26 @@ public class InsumoController {
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
         alerta.showAndWait();
+    }
+
+    private void verificarAlertasStock() {
+        IInsumoDAO insumoDAO = new InsumoDAOImpl();
+        List<Insumo> insumosBajos = insumoDAO.obtenerInsumosBajoStock();
+
+        // Si la lista no está vacía, significa que hay problemas de stock
+        if (!insumosBajos.isEmpty()) {
+            StringBuilder mensaje = new StringBuilder("Los siguientes insumos están por agotarse:\n\n");
+            
+            for (Insumo i : insumosBajos) {
+                mensaje.append("• ").append(i.getName())
+                       .append(" (Quedan: ").append(i.getQuantity()).append(" ").append(i.getUnit()).append(")\n");
+            }
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Alerta de Stock Crítico");
+            alert.setHeaderText("¡Atención Gerente! Posible desabasto");
+            alert.setContentText(mensaje.toString());
+            alert.showAndWait();
+        }
     }
 }

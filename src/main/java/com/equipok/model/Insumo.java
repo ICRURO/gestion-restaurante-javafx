@@ -43,4 +43,6 @@ public class Insumo {
     public String toString() {
         return this.name + " (" + this.quantity + " " + this.unit + ")";
     }
+    
+    
 }
