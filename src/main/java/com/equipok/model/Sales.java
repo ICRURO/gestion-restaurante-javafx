@@ -2,7 +2,19 @@ package com.equipok.model;
 
 import java.time.LocalDateTime;
 
+/**
+ * <p>
+ * Clase Sales - Modelo de Datos para Ventas Finalizadas
+ * </p>
+ * @author Ian R. - Equipo K
+ * @version 2.0
+ * @since 2026-04-18
+ */
+
 public class Sales {
+    /**
+     * Atributos de la clase Sales
+     */
     private int id;
     private int billId;
     private int tableId;
@@ -14,6 +26,36 @@ public class Sales {
     private String items;
     public Sales() {}
 
+ /**
+  * Constructor para crear una nueva venta finalizada con detalles de los items vendidos
+  * @param billId
+  * @param tableId
+  * @param subtotal
+  * @param tip
+  * @param method
+  * @param items
+  */
+
+    public Sales(int billId, int tableId, double subtotal, double tip, String method, String items) {
+        this.billId = billId;
+        this.tableId = tableId;
+        this.subtotal = subtotal;
+        this.tip = tip;
+        this.totalFinal = subtotal + tip;
+        this.paymentMethod = method;
+        this.saleDate = LocalDateTime.now();
+        this.items = items;
+    }
+
+       /**
+     * Constructor para crear una nueva venta finalizada
+     * @param billId
+     * @param tableId
+     * @param subtotal
+     * @param tip
+     * @param method
+     */
+
     public Sales(int billId, int tableId, double subtotal, double tip, String method) {
         this.billId = billId;
         this.tableId = tableId;
@@ -24,6 +66,10 @@ public class Sales {
         this.saleDate = LocalDateTime.now();
     }
 
+/**
+ * Getters y Setters
+ * @return
+ */
     public int getId() {
         return id;
     }
@@ -96,6 +142,11 @@ public class Sales {
         this.items = items;
     }
 
+    /**
+     * Métodos para obtener el día, mes, año y hora de la venta
+     * @return
+     */
+ 
     public int getSaleHour() {
         return this.saleDate != null ? this.saleDate.getHour() : 0;
     }
