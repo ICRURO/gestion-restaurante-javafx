@@ -53,6 +53,7 @@
                   
                   <Button fx:id="btnCocina" layoutX="58.0" layoutY="545.0" mnemonicParsing="false" onAction="#switchToKitchen" prefHeight="130.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Cocina" />
                   <Button fx:id="btnGestionPersonal" layoutX="365.0" layoutY="545.0" mnemonicParsing="false" onAction="#switchToPersonal" prefHeight="130.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Gestión de Personal" />
+                  <Button fx:id="btnProductivity" layoutX="672.0" layoutY="545.0" mnemonicParsing="false" onAction="#switchToProductivity" prefHeight="130.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Productividad Personal" />
                   </children>
             </Pane>
          </children>

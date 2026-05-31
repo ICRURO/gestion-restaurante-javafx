@@ -151,4 +151,31 @@ public class EmpleadoDAOImpl implements IEmpleadoDAO {
         }
     }
 
+    public List<Empleado> getWaiterProductivityReport() {
+    List<Empleado> reportList = new ArrayList<>();
+    String sql = "SELECT w.waiter_id, w.name, COUNT(b.id) AS total_orders " +
+                 "FROM waiters w " +
+                 "LEFT JOIN bills b ON w.waiter_id = b.waiter_id " + 
+                 "WHERE w.status = 'ACTIVE' " +
+                 "GROUP BY w.waiter_id, w.name " +
+                 "ORDER BY total_orders DESC";
+                 
+    try (Connection con = ConexionDB.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        
+        while (rs.next()) {
+            Empleado e = new Empleado();
+            e.setId(rs.getInt("waiter_id"));
+            e.setNombre(rs.getString("name"));
+            e.setPuesto(String.valueOf(rs.getInt("total_orders"))); 
+            
+            reportList.add(e);
+        }
+        } catch (SQLException e) {
+        System.err.println("SQL Error inside getWaiterProductivityReport: " + e.getMessage());
+        }
+        return reportList;
+    }
+
 }

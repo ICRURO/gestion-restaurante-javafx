@@ -101,6 +101,12 @@ public class PrimaryController {
         App.setRoot("personal");
     }
 
+    @FXML
+    private void switchToProductivity() throws IOException {
+        App.setRoot("productivity");
+    }
+
+
     private void cargarPantalla(String Fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(Fxml + ".fxml"));

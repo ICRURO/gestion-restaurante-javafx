@@ -47,7 +47,7 @@ CREATE TABLE waiters (
     status VARCHAR(20) DEFAULT 'ACTIVE'
 );
 
-ALTER TABLE waiters ADD COLUMN phone VARCHAR(15);
+ALTER TABLE waiters ADD COLUMN phone VARCHAR(15); --ñ
 
 CREATE TABLE products (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -113,3 +113,5 @@ CREATE TABLE insumos (
     unit VARCHAR(20) NOT NULL, -- ej. kg, litros, piezas
     min_stock DOUBLE NOT NULL  -- Nos servirá para el CU-18
 );
+
+ALTER TABLE bills ADD COLUMN waiter_id INT;  --ñ
