@@ -47,6 +47,8 @@ CREATE TABLE waiters (
     status VARCHAR(20) DEFAULT 'ACTIVE'
 );
 
+ALTER TABLE waiters ADD COLUMN phone VARCHAR(15);
+
 CREATE TABLE products (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,

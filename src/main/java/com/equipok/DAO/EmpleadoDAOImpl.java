@@ -68,4 +68,87 @@ public class EmpleadoDAOImpl implements IEmpleadoDAO {
             return false;
         }
     }
+
+    /* ñ empleados */
+    public boolean registerWaiterOnly(Empleado employee) {
+        String sql = "INSERT INTO waiters (name, phone, status) VALUES (?, ?, ?)";
+        try (Connection con = ConexionDB.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            
+            ps.setString(1, employee.getNombre());
+            ps.setString(2, employee.getTelefono());
+            ps.setString(3, "ACTIVE");
+            
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("SQL Error (registerWaiterOnly): " + e.getMessage());
+            return false;
+        }
+    }
+
+    public List<Empleado> listWaitersOnly() {
+        List<Empleado> list = new ArrayList<>();
+        String sql = "SELECT waiter_id, name, phone, status FROM waiters";
+        try (Connection con = ConexionDB.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            
+            while (rs.next()) {
+                Empleado e = new Empleado();
+                e.setId(rs.getInt("waiter_id"));
+                e.setNombre(rs.getString("name"));
+                e.setTelefono(rs.getString("phone"));
+                e.setPuesto("Mesero"); 
+                e.setTurno(rs.getString("status")); // Mapping 'status' to 'turno' properties safely
+                list.add(e);
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL Error (listWaitersOnly): " + e.getMessage());
+        }
+        return list;
+    }
+
+    public boolean updateWaiterData(Empleado employee) {
+        String sql = "UPDATE waiters SET name = ?, phone = ?, status = ? WHERE waiter_id = ?";
+        try (Connection con = ConexionDB.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            
+            ps.setString(1, employee.getNombre());
+            ps.setString(2, employee.getTelefono());
+            ps.setString(3, employee.getTurno()); 
+            ps.setInt(4, employee.getId());
+            
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("SQL Error (updateWaiterData): " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean disableWaiterStatus(int id) {
+        String sql = "UPDATE waiters SET status = 'INACTIVE' WHERE waiter_id = ?";
+        try (Connection con = ConexionDB.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("SQL Error (disableWaiterStatus): " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean deleteWaiterPhysically(int id) {
+    String sql = "DELETE FROM waiters WHERE waiter_id = ?";
+    try (Connection con = ConexionDB.obtenerConexion(); 
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        ps.setInt(1, id);
+        return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+        System.err.println("SQL Error (deleteWaiterPhysically): " + e.getMessage());
+        return false;
+        }
+    }
+
 }

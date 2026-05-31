@@ -80,15 +80,19 @@ public class OrderTakingController {
     }
 
     private void loadWaiters() {
-        String sql = "SELECT name FROM waiters WHERE status = 'ACTIVE'";
-        try (Connection conn = ConexionDB.obtenerConexion();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                waiterComboBox.getItems().add(rs.getString("name"));
-            }
-        } catch (SQLException e) { e.printStackTrace(); }
+    waiterComboBox.getItems().clear();   
+    String sql = "SELECT name FROM waiters WHERE status = 'ACTIVE'";
+    try (Connection conn = ConexionDB.obtenerConexion();
+         Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+         
+        while (rs.next()) {
+            waiterComboBox.getItems().add(rs.getString("name"));
+        }
+    } catch (SQLException e) { 
+        System.err.println("SQL Error inside loadWaiters combo renderer: " + e.getMessage());
     }
+}
 
     @FXML
     private void handleAddToCart() {

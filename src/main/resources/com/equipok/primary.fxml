@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="600.0" prefWidth="900.0" styleClass="main-pane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.PrimaryController">
+<Pane prefHeight="730.0" prefWidth="1200.0" styleClass="main-pane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.equipok.PrimaryController">
    <children>
-      <Pane prefHeight="700.0" prefWidth="220.0" styleClass="sidebar" stylesheets="@styles.css">
+      <Pane prefHeight="730.0" prefWidth="220.0" styleClass="sidebar" stylesheets="@styles.css">
          <children>
             <Label layoutX="22.0" layoutY="28.0" stylesheets="@styles.css" text="Sistema Gestión" textFill="WHITE">
                <font>
@@ -25,30 +25,35 @@
             <Label layoutX="3.0" layoutY="209.0" prefHeight="40.0" prefWidth="220.0" styleClass="sidebar-label" stylesheets="@styles.css" text="Mesas" textFill="#94a3b8" />
             <Label layoutX="3.0" layoutY="259.0" prefHeight="40.0" prefWidth="220.0" styleClass="sidebar-label" stylesheets="@styles.css" text="Personal" textFill="#94a3b8" />
             <Label layoutX="3.0" layoutY="300.0" prefHeight="40.0" prefWidth="220.0" styleClass="sidebar-label" stylesheets="@styles.css" text="Reportes" textFill="#94a3b8" />
-            <Button layoutX="27.0" layoutY="538.0" mnemonicParsing="false" onAction="#cerrarSesion" styleClass="btn-ingresar" stylesheets="@styles.css" text="CERRAR SESIÓN" />
+            <Button layoutX="27.0" layoutY="560.0" mnemonicParsing="false" onAction="#cerrarSesion" styleClass="btn-ingresar" stylesheets="@styles.css" text="CERRAR SESIÓN" />
          </children>
       </Pane>
-      <StackPane fx:id="mainPane" layoutX="220.0" prefHeight="700.0" prefWidth="980.0">
+
+      <StackPane fx:id="mainPane" layoutX="220.0" prefHeight="730.0" prefWidth="980.0">
          <children>
-            <Pane fx:id="buttonPane" prefHeight="684.0" prefWidth="200.0" styleClass="sub-pane" stylesheets="@styles.css">
+            <Pane fx:id="buttonPane" prefHeight="710.0" prefWidth="980.0" styleClass="sub-pane" stylesheets="@styles.css">
                <children>
-                  <Label layoutX="26.0" layoutY="26.0" text="Panel de control" textFill="#121212">
+                  <Label layoutX="26.0" layoutY="20.0" text="Panel de control" textFill="#121212">
                      <font>
-                        <Font name="System Bold" size="30.0" />
+                        <Font name="System Bold" size="26.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btnPedirOrden" layoutX="58.0" layoutY="330.0" mnemonicParsing="false" onAction="#switchToOrderTaking" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Toma de Pedido" />
-                  <Button fx:id="btnAgregarProducto" layoutX="654.0" layoutY="126.0" mnemonicParsing="false" onAction="#abrirProductos" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Agregar producto" />
-                  <Button fx:id="btnPagarCuenta" layoutX="58.0" layoutY="126.0" mnemonicParsing="false" onAction="#switchToPayBill" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Pagar cuenta" />
-                  <Button fx:id="btnReporteVentas" layoutX="654.0" layoutY="330.0" mnemonicParsing="false" onAction="#switchToSalesReport" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Reporte de Ventas" />
-                  <Button fx:id="btnReservar" layoutX="355.0" layoutY="126.0" mnemonicParsing="false" onAction="#abrirReservas" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Reservar Mesa" />
-                  <Button fx:id="btnGestionMesas" layoutX="58.0" layoutY="500.0" mnemonicParsing="false" onAction="#switchToTableManagement" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Gestión de Mesas" />
-                  <Button fx:id="btnGestionPersonal" layoutX="654.0" layoutY="500.0" mnemonicParsing="false" onAction="#switchToPersonal" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Gestión del Personal" />
-                  <Button fx:id="btnMermas" layoutX="654.0" layoutY="500.0" mnemonicParsing="false" onAction="#switchToWaste" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Mermas" />
-                  <Button fx:id="btnProveedores" layoutX="355.0" layoutY="500.0" mnemonicParsing="false" onAction="#openProveedores" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Proveedores" />
-                  <Button fx:id="btnCocina" layoutX="355.0" layoutY="500.0" mnemonicParsing="false" onAction="#switchToKitchen" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Cocina" />
-                  <Button fx:id="btnInsumos" layoutX="365.0" layoutY="330.0" mnemonicParsing="false" onAction="#abrirInsumos" prefHeight="150.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Insumos" />
-               </children>
+                  
+                  <Button fx:id="btnPagarCuenta" layoutX="58.0" layoutY="80.0" mnemonicParsing="false" onAction="#switchToPayBill" prefHeight="130.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Pagar cuenta" />
+                  <Button fx:id="btnReservar" layoutX="365.0" layoutY="80.0" mnemonicParsing="false" onAction="#abrirReservas" prefHeight="130.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Reservar Mesa" />
+                  <Button fx:id="btnAgregarProducto" layoutX="672.0" layoutY="80.0" mnemonicParsing="false" onAction="#abrirProductos" prefHeight="130.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Agregar producto" />
+                  
+                  <Button fx:id="btnPedirOrden" layoutX="58.0" layoutY="235.0" mnemonicParsing="false" onAction="#switchToOrderTaking" prefHeight="130.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Toma de Pedido" />
+                  <Button fx:id="btnInsumos" layoutX="365.0" layoutY="235.0" mnemonicParsing="false" onAction="#abrirInsumos" prefHeight="130.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Insumos" />
+                  <Button fx:id="btnReporteVentas" layoutX="672.0" layoutY="235.0" mnemonicParsing="false" onAction="#switchToSalesReport" prefHeight="130.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Reporte de Ventas" />
+                  
+                  <Button fx:id="btnGestionMesas" layoutX="58.0" layoutY="390.0" mnemonicParsing="false" onAction="#switchToTableManagement" prefHeight="130.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Gestión de Mesas" />
+                  <Button fx:id="btnProveedores" layoutX="365.0" layoutY="390.0" mnemonicParsing="false" onAction="#openProveedores" prefHeight="130.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Proveedores" />
+                  <Button fx:id="btnMermas" layoutX="672.0" layoutY="390.0" mnemonicParsing="false" onAction="#switchToWaste" prefHeight="130.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Mermas" />
+                  
+                  <Button fx:id="btnCocina" layoutX="58.0" layoutY="545.0" mnemonicParsing="false" onAction="#switchToKitchen" prefHeight="130.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Cocina" />
+                  <Button fx:id="btnGestionPersonal" layoutX="365.0" layoutY="545.0" mnemonicParsing="false" onAction="#switchToPersonal" prefHeight="130.0" prefWidth="250.0" styleClass="action-card" stylesheets="@styles.css" text="Gestión de Personal" />
+                  </children>
             </Pane>
          </children>
       </StackPane>

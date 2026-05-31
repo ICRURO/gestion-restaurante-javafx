@@ -173,7 +173,7 @@ private void verificarAlertasStock() {
                 ocultarNodo(btnAgregarProducto);
                 ocultarNodo(btnReporteVentas);
                 ocultarNodo(btnGestionMesas);
-                ocultarNodo(btnGestionPersonal);
+                //ocultarNodo(btnGestionPersonal);
                 ocultarNodo(btnCocina);
                 ocultarNodo(btnIngreso);
                 break;
