@@ -102,6 +102,7 @@ public class PrimaryController {
     }
 
     @FXML
+<<<<<<< HEAD
     private void switchToBilling() throws IOException {
         App.setRoot("Billing");
     }
@@ -110,6 +111,12 @@ public class PrimaryController {
 private void switchToCorteCaja() throws IOException {
     App.setRoot("CorteCaja"); // Navegación estándar de la app
 }
+=======
+    private void switchToProductivity() throws IOException {
+        App.setRoot("productivity");
+    }
+
+>>>>>>> 926535c0fce30061f308aa1a3649798e5378f8cc
 
     private void cargarPantalla(String Fxml) {
         try {
