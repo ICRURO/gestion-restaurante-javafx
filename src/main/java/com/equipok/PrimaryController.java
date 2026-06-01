@@ -101,6 +101,16 @@ public class PrimaryController {
         App.setRoot("personal");
     }
 
+    @FXML
+    private void switchToBilling() throws IOException {
+        App.setRoot("Billing");
+    }
+
+    @FXML
+private void switchToCorteCaja() throws IOException {
+    App.setRoot("CorteCaja"); // Navegación estándar de la app
+}
+
     private void cargarPantalla(String Fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(Fxml + ".fxml"));
